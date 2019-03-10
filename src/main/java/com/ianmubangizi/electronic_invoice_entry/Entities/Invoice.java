@@ -11,5 +11,41 @@ package com.ianmubangizi.electronic_invoice_entry.Entities;
  */
 
 public class Invoice {
+    private int invoice_number;
+    private int customer_number;
+    private double payment;
 
+    public Invoice() {
+    }
+
+    public Invoice(int invoice_number, int customer_number, double payment) {
+        this.invoice_number = invoice_number;
+        this.customer_number = customer_number;
+        this.payment = payment;
+    }
+
+    public int getInvoice_number() {
+        return invoice_number;
+    }
+
+    public void setInvoice_number(int invoice_number) {
+        this.invoice_number = invoice_number;
+    }
+
+    public int getCustomer_number() {
+        return customer_number;
+    }
+
+    public void setCustomer_number(int customer_number) {
+        this.customer_number = customer_number;
+    }
+
+    public double getPayment() {
+        return payment;
+    }
+
+    public void setPayment(double payment) {
+        this.payment = payment;
+    }
+    
 }

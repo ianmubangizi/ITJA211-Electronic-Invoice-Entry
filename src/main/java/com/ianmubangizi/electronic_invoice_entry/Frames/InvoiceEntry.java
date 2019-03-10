@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Ian Mubangizi
+ * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class InvoiceEntry extends JFrame {
 
@@ -44,19 +44,19 @@ public class InvoiceEntry extends JFrame {
     private final JLabel jl_allproducts = new JLabel("All Products:");
 
     //
-    private final JTextField jtf_name = new JTextField();
-    private final JTextField jtf_address = new JTextField();
-    private final JTextField jtf_city = new JTextField();
-    private final JTextField jtf_description = new JTextField();
-    private final JTextField jtf_province = new JTextField();
-    private final JTextField jtf_zip = new JTextField();
-    private final JTextField jtf_productcode = new JTextField();
-    private final JTextField jtf_invoicenumber = new JTextField();
-    private final JTextField jtf_customernumber = new JTextField();
-    private final JTextField jtf_quantity = new JTextField();
-    private final JTextField jtf_payment = new JTextField();
-    private final JTextField jtf_price = new JTextField();
-    private final JTextField jtf_deposit = new JTextField();
+    public final JTextField jtf_name = new JTextField();
+    public final JTextField jtf_address = new JTextField();
+    public final JTextField jtf_city = new JTextField();
+    public final JTextField jtf_description = new JTextField();
+    public final JTextField jtf_province = new JTextField();
+    public final JTextField jtf_zip = new JTextField();
+    public final JTextField jtf_productcode = new JTextField();
+    public final JTextField jtf_invoicenumber = new JTextField();
+    public final JTextField jtf_customernumber = new JTextField();
+    public final JTextField jtf_quantity = new JTextField();
+    public final JTextField jtf_payment = new JTextField();
+    public final JTextField jtf_price = new JTextField();
+    public final JTextField jtf_deposit = new JTextField();
 
     //
     public final JButton jbtn_addcustomer = new JButton("Add Customer");
@@ -68,8 +68,8 @@ public class InvoiceEntry extends JFrame {
     public final JButton jbtn_writeinvoice = new JButton("Write Invoice");
     public final JButton jbtn_next = new JButton("Next");
 
-    private final JScrollPane jslp_productbought = new JScrollPane();
-    private final JComboBox<InvoiceEntry> jcbx_allproducts = new JComboBox<>();
+    public final JScrollPane jslp_productbought = new JScrollPane();
+    public final JComboBox<InvoiceEntry> jcbx_allproducts = new JComboBox<>();
 
     public InvoiceEntry() throws HeadlessException {
         initFrame();
@@ -87,43 +87,43 @@ public class InvoiceEntry extends JFrame {
         getContentPane().setBackground(Color.cyan);
         getRootPane().setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.cyan));
 
-        add(jl_name);
-        add(jtf_name);
-        add(jl_address);
-        add(jtf_address);
-        add(jl_city);
-        add(jtf_city);
-        add(jl_description);
-        add(jtf_description);
-        add(jl_province);
-        add(jtf_province);
-        add(jl_zip);
-        add(jtf_zip);
-        add(jl_productcode);
-        add(jtf_productcode);
-        add(jl_invoicenumber);
-        add(jtf_invoicenumber);
-        add(jl_customernumber);
-        add(jtf_customernumber);
-        add(jl_productbought);
-        add(jslp_productbought);
-        add(jl_quantity);
-        add(jtf_quantity);
-        add(jl_payment);
-        add(jtf_payment);
-        add(jl_price);
-        add(jtf_price);
-        add(jl_deposit);
-        add(jtf_deposit);
-        add(jl_allproducts);
-        add(jcbx_allproducts);
-        add(jbtn_addcustomer);
-        add(jbtn_findproduct);
-        add(jbtn_listproduct);
-        add(jbtn_addinvoice);
-        add(jbtn_showinvoice);
-        add(jbtn_exit);
-        add(jbtn_writeinvoice);
-        add(jbtn_next);
+        add(jl_name).setName("jl_name");
+        add(jtf_name).setName("jtf_name");;
+        add(jl_address).setName("jl_address");;
+        add(jtf_address).setName("jtf_address");;
+        add(jl_city).setName("jl_city");;
+        add(jtf_city).setName("jtf_city");;
+        add(jl_description).setName("jl_description");;
+        add(jtf_description).setName("jtf_description");;
+        add(jl_province).setName("jl_province");;
+        add(jtf_province).setName("jtf_province");;
+        add(jl_zip).setName("jl_zip");;
+        add(jtf_zip).setName("jtf_zip");;
+        add(jl_productcode).setName("jl_productcode");;
+        add(jtf_productcode).setName("jtf_productcode");
+        add(jl_invoicenumber).setName("jl_invoicenumber");
+        add(jtf_invoicenumber).setName("jtf_invoicenumber");
+        add(jl_customernumber).setName("jl_customernumber");
+        add(jtf_customernumber).setName("jtf_customernumber");
+        add(jl_productbought).setName("jl_productbought");
+        add(jslp_productbought).setName("jslp_productbought");
+        add(jl_quantity).setName("jl_quantity");
+        add(jtf_quantity).setName("jtf_quantity");
+        add(jl_payment).setName("jl_payment");
+        add(jtf_payment).setName("jtf_payment");
+        add(jl_price).setName("jl_price");
+        add(jtf_price).setName("jtf_price");
+        add(jl_deposit).setName("jl_deposit");
+        add(jtf_deposit).setName("jtf_deposit");
+        add(jl_allproducts).setName("jl_allproducts");
+        add(jcbx_allproducts).setName("jcbx_allproducts");
+        add(jbtn_addcustomer).setName("jbtn_addcustomer");
+        add(jbtn_findproduct).setName("jbtn_findproduct");
+        add(jbtn_listproduct).setName("jbtn_listproduct");
+        add(jbtn_addinvoice).setName("jbtn_addinvoice");
+        add(jbtn_showinvoice).setName("jbtn_showinvoice");
+        add(jbtn_exit).setName("jbtn_exit");
+        add(jbtn_writeinvoice).setName("jbtn_writeinvoice");
+        add(jbtn_next).setName("jbtn_next");
     }
 }

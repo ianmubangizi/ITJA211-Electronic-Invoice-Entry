@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Ian Mubangizi
+ * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class Transaction extends JFrame {
 
@@ -34,10 +34,10 @@ public class Transaction extends JFrame {
     private final JTextField jtf_balance = new JTextField();
     
     //
-    private final JButton jbtn_check = new JButton("Check Balance");
-    private final JButton jbtn_deposit = new JButton("Deposit");
-    private final JButton jbtn_calculate = new JButton("Calculate Payment & Deposit");
-    private final JButton jbtn_transaction = new JButton("Transaction");
+    public final JButton jbtn_check = new JButton("Check Balance");
+    public final JButton jbtn_deposit = new JButton("Deposit");
+    public final JButton jbtn_calculate = new JButton("Calculate Payment & Deposit");
+    public final JButton jbtn_transaction = new JButton("Transaction");
     
     public Transaction(){
         initFrame();
