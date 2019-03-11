@@ -18,14 +18,14 @@ import java.sql.Statement;
 public class DatabaseService {
 
     private Statement statement;
-    private final Connection connection;
+    private Connection connection;
 
     private final String dbuser = "root";
     private final String dbpassword = "root_pass"; 
     private final String jdbc_driver = "com.mysql.cj.jdbc.Driver";
     private final String url =  "jdbc:mysql://localhost:3306/orion";
 
-    public DatabaseService() throws SQLException, ClassNotFoundException {
+    public void setDbService() throws SQLException, ClassNotFoundException {
         Class.forName(jdbc_driver);
         this.connection = DriverManager.getConnection(
             // Note, these are my Local MySQL settings, do change them  
@@ -33,7 +33,6 @@ public class DatabaseService {
         );
         setStatement(this.connection.createStatement());
     }
-
 
     public Statement getStatement() {
         return this.statement;

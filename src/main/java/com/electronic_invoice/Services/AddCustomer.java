@@ -5,10 +5,9 @@
  */
 package com.electronic_invoice.Services;
 
+import com.electronic_invoice.Entities.Customer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.electronic_invoice.Entities.Customer;
 
 /**
  * AddCustomer
@@ -19,7 +18,7 @@ public class AddCustomer {
     DatabaseService db = new DatabaseService();
 
     public AddCustomer(Customer c) throws ClassNotFoundException, SQLException {
-
+        db.setDbService();
         db.updateQuery(
             
             "INSERT INTO `orion`.`customer` (" +
@@ -34,10 +33,15 @@ public class AddCustomer {
                         + ")"
         );
     }
-    public String genCustom_number(int c) throws SQLException {
-        ResultSet rs = db.getQuery("SELECT `Customer_Number` FROM `orion`.`customer` WHERE `Customer_Number`="+ c +";");
+    private String genCustom_number(int c) throws SQLException {
+        ResultSet rs = db.getQuery(
+                "SELECT `Customer_Number` "
+                + "FROM `orion`.`customer` "
+                + "WHERE `Customer_Number`="+ c +";"
+        );
         while(rs.next()){
-            return (Integer.toString(c).matches("\\d{1,200}[^.\\s]") || c == rs.getInt("Customer_Number")  ? "35142" : "1");
+            return (Integer.toString(c).matches("\\d{1,200}[^.\\s]") || 
+                    c == rs.getInt("Customer_Number")  ? "35142" : "1");
         }
         return "";
     }
