@@ -27,7 +27,7 @@ public class Customer {
         this.city = city;
         this.province = province;
         this.zip = zip;
-        this.depoist = double.class.cast(depoist);
+        this.depoist = Double.parseDouble(depoist);
     }
     
     private double depoist;

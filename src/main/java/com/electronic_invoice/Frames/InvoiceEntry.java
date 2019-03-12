@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -68,9 +69,10 @@ public class InvoiceEntry extends JFrame {
     public final JButton jbtn_writeinvoice = new JButton("Write Invoice");
     public final JButton jbtn_next = new JButton("Next");
 
-    public final JScrollPane jslp_productbought = new JScrollPane();
+    public final JTextArea jtxta_products = new JTextArea("Product 1\nProduct 2\nProduct 3\n");
+    public final JScrollPane jslp_productbought = new JScrollPane(jtxta_products);
     public final JComboBox<InvoiceEntry> jcbx_allproducts = new JComboBox<>();
-
+    
     public InvoiceEntry() throws HeadlessException {
         initFrame();
     }
@@ -86,6 +88,9 @@ public class InvoiceEntry extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.cyan);
         getRootPane().setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.cyan));
+
+        jtxta_products.setEditable(false);
+        jtxta_products.setName("jtxta_productsbought");
 
         add(jl_name).setName("jl_name");
         add(jtf_name).setName("jtf_name");

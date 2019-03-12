@@ -55,15 +55,15 @@ public class Transaction extends JFrame {
                 BorderFactory.createMatteBorder(2, 2, 2, 2, Color.GREEN)
         );
         
-        add(jl_name);
-        add(jtf_name);
-        add(jl_customernumber);
-        add(jtf_customernumber);
-        add(jl_balance);
-        add(jtf_balance);
-        add(jbtn_check);
-        add(jbtn_deposit);
-        add(jbtn_calculate);
-        add(jbtn_transaction);
+        add(jl_name).setName("jl_name");;
+        add(jtf_name).setName("jtf_name");
+        add(jl_customernumber).setName("jl_customernumber");
+        add(jtf_customernumber).setName("jtf_customernumber");
+        add(jl_balance).setName("jl_balance");
+        add(jtf_balance).setName("jtf_balance");
+        add(jbtn_check).setName("jbtn_check");
+        add(jbtn_deposit).setName("jbtn_deposit");
+        add(jbtn_calculate).setName("jbtn_calculate");
+        add(jbtn_transaction).setName("jbtn_transaction");
     }
 }

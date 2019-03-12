@@ -24,6 +24,7 @@ public class Main implements ActionListener {
     Transaction tsFrame;
     InvoiceEntry ieFrame;
 
+    //
     public void initMain() {
         this.ieFrame = new InvoiceEntry();
         this.tsFrame = new Transaction();
@@ -59,23 +60,25 @@ public class Main implements ActionListener {
         }
         if (source.equals(ieFrame.jbtn_addcustomer)) {
             try {
-                AddCustomer addCustomer = new AddCustomer(new Customer(
-                        ieFrame.jtf_customernumber.getText(),
+                new AddCustomer(
+                    new Customer(
+                        ieFrame.jtf_customernumber.getText(), 
                         ieFrame.jtf_name.getText(),
-                        ieFrame.jtf_address.getText(),
+                        ieFrame.jtf_address.getText(), 
                         ieFrame.jtf_city.getText(),
                         ieFrame.jtf_province.getText(),
-                        ieFrame.jtf_zip.getText(),
+                        ieFrame.jtf_zip.getText(), 
                         ieFrame.jtf_deposit.getText()
-                ));
+                    )
+                );
             } catch (ClassNotFoundException | SQLException e1) {
             }
         }
-        if(source.equals(ieFrame.jbtn_addinvoice)){
-            AddInvoice addInvoice = new AddInvoice(new Invoice(
-                    // ieFrame.jtf
-                    // ieFrame.jtf
-                    // ieFrame.jtf
+        if (source.equals(ieFrame.jbtn_addinvoice)) {
+            new AddInvoice(new Invoice(
+            // ieFrame.jtf
+            // ieFrame.jtf
+            // ieFrame.jtf
             ));
         }
     }

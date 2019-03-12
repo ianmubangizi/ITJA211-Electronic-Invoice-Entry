@@ -6,7 +6,7 @@
 package com.electronic_invoice.Services;
 
 import com.electronic_invoice.Entities.Customer;
-import java.sql.ResultSet;
+//import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -23,7 +23,8 @@ public class AddCustomer {
             
             "INSERT INTO `orion`.`customer` (" +
                         "`Customer_Number`, `Name`, `Address`, `City`, `Province`, `Zip`, `Deposit`) VALUES ("
-                        + (genCustom_number(c.getCustomer_number()))
+                        // + (genCustom_number(c.getCustomer_number()))
+                        + c.getCustomer_number()
                         + ",'" + c.getName()
                         + "','" + c.getAddress()
                         + "','" + c.getCity()
@@ -33,16 +34,16 @@ public class AddCustomer {
                         + ")"
         );
     }
-    private String genCustom_number(int c) throws SQLException {
-        ResultSet rs = db.getQuery(
-                "SELECT `Customer_Number` "
-                + "FROM `orion`.`customer` "
-                + "WHERE `Customer_Number`="+ c +";"
-        );
-        while(rs.next()){
-            return (Integer.toString(c).matches("\\d{1,200}[^.\\s]") || 
-                    c == rs.getInt("Customer_Number")  ? "35142" : "1");
-        }
-        return "";
-    }
+    // private String genCustom_number(int c) throws SQLException {
+    //     ResultSet rs = db.getQuery(
+    //             "SELECT `Customer_Number` "
+    //             + "FROM `orion`.`customer` "
+    //             + "WHERE `Customer_Number`="+ c +";"
+    //     );
+    //     while(rs.next()){
+    //         return (Integer.toString(c).matches("\\d{1,200}[^.\\s]") || 
+    //                 c == rs.getInt("Customer_Number")  ? "35142" : "1");
+    //     }
+    //     return "";
+    // }
 }
