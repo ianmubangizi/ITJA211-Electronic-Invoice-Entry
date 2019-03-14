@@ -1,17 +1,13 @@
 package com.electronic_invoice.Utils;
 
-import java.util.Random;
+import com.electronic_invoice.Services.FindCustomer;
 
 /**
  * Generate
  */
 public class Generate {
 
-    public Generate() {
-
-    }
-    
-    public int customerNumber(){
-        return new Random().nextInt(200);
+    public int nextCustomerNumber() {
+        return (new FindCustomer().lastCreatedId() + 1);
     }
 }

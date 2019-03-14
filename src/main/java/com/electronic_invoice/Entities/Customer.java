@@ -5,6 +5,8 @@
  */
 package com.electronic_invoice.Entities;
 
+// import com.electronic_invoice.Services.DatabaseService;
+
 /**
  *
  * @author Ian Mubangizi <io@ianmubangizi.com>
@@ -16,21 +18,23 @@ public class Customer {
     private String city;
     private String province;
     private String zip;
-
-    public Customer() {
-    }
+    private double deposit;
     
-    public Customer(String customer_number, String name, String address, String city, String province, String zip, String depoist) {
-        this.customer_number = Integer.parseInt(customer_number);
+    // private DatabaseService db = new DatabaseService();
+
+    /**
+     * 
+     * 
+     */
+    public Customer(String name, String address, String city, String province, String zip, String deposit) {
+        this.customer_number = 1;
         this.name = name;
         this.address = address;
         this.city = city;
         this.province = province;
         this.zip = zip;
-        this.depoist = Double.parseDouble(depoist);
+        this.deposit = Double.parseDouble(deposit);
     }
-    
-    private double depoist;
 
     public int getCustomer_number() {
         return customer_number;
@@ -80,12 +84,12 @@ public class Customer {
         this.zip = zip;
     }
 
-    public double getDepoist() {
-        return depoist;
+    public double getDeposit() {
+        return deposit;
     }
 
-    public void setDepoist(double depoist) {
-        this.depoist = depoist;
+    public void setDeposit(double deposit) {
+        this.deposit = deposit;
     }
     
 }

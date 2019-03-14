@@ -19,9 +19,9 @@ public class Invoice {
     }
 
     public Invoice(String invoice_number, String customer_number, String payment) {
-        this.invoice_number = Integer.parseInt(invoice_number);
+        this.invoice_number = 1;// Integer.parseInt(invoice_number);
         this.customer_number = Integer.parseInt(customer_number);
-        this.payment = double.class.cast(payment);
+        this.payment = Double.parseDouble(payment);
     }
 
     public int getInvoice_number() {

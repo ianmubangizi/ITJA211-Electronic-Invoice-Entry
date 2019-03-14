@@ -21,32 +21,48 @@ public class DatabaseService {
     private Connection connection;
 
     private final String dbuser = "root";
-    private final String dbpassword = "root_pass"; 
+    private final String dbpassword = "Kueyf2J5Z4Vb";
     private final String jdbc_driver = "com.mysql.cj.jdbc.Driver";
-    private final String url =  "jdbc:mysql://localhost:3306/orion";
+    private final String url = "jdbc:mysql://localhost:3306/orion";
 
-    public void setDbService() throws SQLException, ClassNotFoundException {
-        Class.forName(jdbc_driver);
-        this.connection = DriverManager.getConnection(
-            // Note, these are my Local MySQL settings, do change them  
-                url, dbuser, dbpassword
-        );
-        setStatement(this.connection.createStatement());
+    public void setDbService() {
+        try {
+            Class.forName(jdbc_driver);
+            this.connection = DriverManager.getConnection(
+                    // Note, these are my Local MySQL settings, do change them
+                    url, dbuser, dbpassword);
+            setStatement(this.connection.createStatement());
+        } catch (ClassNotFoundException | SQLException e) {
+
+        }
     }
 
     public Statement getStatement() {
+        if (this.statement == null)
+            try {
+                this.statement = this.connection.createStatement();
+            } catch (SQLException e) {
+            }
         return this.statement;
     }
 
-    public void setStatement(Statement statement) throws SQLException {
+    public void setStatement(Statement statement) {
         this.statement = statement;
     }
 
-    public ResultSet getQuery(String sql) throws SQLException {
-        return getStatement().executeQuery(sql);
+    public ResultSet getQuery(String sql) {
+        try {
+            return getStatement().executeQuery(sql);
+        } catch (SQLException e) {
+        }
+        return null;
     }
 
-    public void updateQuery(String sql) throws SQLException {
-        getStatement().executeUpdate(sql);
+    public void updateQuery(String sql) {
+        try {
+            getStatement().executeUpdate(sql);
+            getStatement().closeOnCompletion();
+        } catch (SQLException e) {
+        }
     }
 }

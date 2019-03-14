@@ -5,15 +5,16 @@
  */
 package com.electronic_invoice;
 
-import com.electronic_invoice.Entities.Customer;
-import com.electronic_invoice.Entities.Invoice;
-import com.electronic_invoice.Frames.InvoiceEntry;
-import com.electronic_invoice.Frames.Transaction;
-import com.electronic_invoice.Services.AddCustomer;
-import com.electronic_invoice.Services.AddInvoice;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+
+import com.electronic_invoice.Frames.InvoiceEntry;
+import com.electronic_invoice.Frames.Transaction;
+import com.electronic_invoice.Utils.ClientAction;
+import com.electronic_invoice.Utils.ECallTypes;
+import com.electronic_invoice.Utils.Generate;
+import com.electronic_invoice.Utils.MessagePane;
+import com.electronic_invoice.Utils.MessagePane.EMessage;
 
 /**
  *
@@ -23,6 +24,7 @@ public class Main implements ActionListener {
 
     Transaction tsFrame;
     InvoiceEntry ieFrame;
+    MessagePane message_pane;
 
     //
     public void initMain() {
@@ -59,27 +61,41 @@ public class Main implements ActionListener {
             tsFrame.setVisible(true);
         }
         if (source.equals(ieFrame.jbtn_addcustomer)) {
-            try {
-                new AddCustomer(
-                    new Customer(
-                        ieFrame.jtf_customernumber.getText(), 
-                        ieFrame.jtf_name.getText(),
-                        ieFrame.jtf_address.getText(), 
-                        ieFrame.jtf_city.getText(),
-                        ieFrame.jtf_province.getText(),
-                        ieFrame.jtf_zip.getText(), 
-                        ieFrame.jtf_deposit.getText()
-                    )
-                );
-            } catch (ClassNotFoundException | SQLException e1) {
-            }
+            addCustomer_btn_action(ECallTypes.ADD_CUSTOMER);
         }
         if (source.equals(ieFrame.jbtn_addinvoice)) {
-            new AddInvoice(new Invoice(
-            // ieFrame.jtf
-            // ieFrame.jtf
-            // ieFrame.jtf
-            ));
+            addInvoice_btn_action();
         }
     }
+
+    public void addCustomer_btn_action(ECallTypes t) {
+        switch (t) {
+        case NO_CUSTOMER:
+            this.message_pane = new MessagePane(null,
+                    "Error, Can't Create Invoice without a Vaild Customer Number\n "
+                            + "Press Okay and Enter Customer Info to get a Number\n"
+                            + "Click the Add Customer Button after filling in Customer Info",
+                    "Adding Invoice Error", EMessage.ERROR);
+            break;
+        case ADD_CUSTOMER:
+            new ClientAction().createCustomer(this.ieFrame);
+            break;
+        case ADD_INVOICE_CUSTOMER:
+            if (this.message_pane == null) {
+                this.message_pane = new MessagePane(null,
+                        "Enter [" + new Generate().nextCustomerNumber() + "] as your new Customer Number\n"
+                                + "Click the Add Customer Button then\n" + "Click the Add Invoice Button",
+                        "New Customer Number", EMessage.INFO);
+            }
+            break;
+        default:
+            break;
+        }
+
+    }
+
+    public void addInvoice_btn_action() {
+        new ClientAction().createInvoice(this.ieFrame);
+    }
+
 }
