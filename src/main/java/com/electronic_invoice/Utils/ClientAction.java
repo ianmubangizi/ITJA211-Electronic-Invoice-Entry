@@ -30,7 +30,7 @@ public class ClientAction {
     public void createInvoice(InvoiceEntry ieFrame) {
         new AddInvoice(new Invoice(ieFrame.jtf_invoicenumber.getText(), ieFrame.jtf_customernumber.getText(),
                 ieFrame.jtf_payment.getText()));
-        // displayInvoiceNumber(ieFrame);
+        displayInvoiceNumber(ieFrame);
     }
 
     private void displayInvoiceNumber(InvoiceEntry ieFrame) {

@@ -17,8 +17,7 @@ public class FindCustomer implements IFindService{
 
     @Override
     public boolean byId(int id) {
-        ResultSet rs = db
-                .getQuery("SELECT customer_number " + "FROM orion.customer " + "WHERE customer_number=" + id + ";");
+        ResultSet rs = db.getQuery("SELECT customer_number " + "FROM orion.customer " + "WHERE customer_number=" + id + ";");
         try {
             if (rs.isFirst()) {
                 return true;
