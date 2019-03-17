@@ -2,12 +2,14 @@ package com.electronic_invoice.Utils;
 
 import com.electronic_invoice.Entities.Customer;
 import com.electronic_invoice.Entities.Invoice;
+import com.electronic_invoice.Entities.Product;
 import com.electronic_invoice.Frames.InvoiceEntry;
 import com.electronic_invoice.Services.AddCustomer;
 import com.electronic_invoice.Services.AddInvoice;
 import com.electronic_invoice.Services.FindCustomer;
 import com.electronic_invoice.Services.FindInvoice;
 import com.electronic_invoice.Services.FindLineItem;
+import com.electronic_invoice.Services.FindProduct;
 import com.electronic_invoice.Services.PrintInvoice;
 import com.electronic_invoice.Utils.MessagePane.EMessage;
 
@@ -84,14 +86,13 @@ public class ClientAction {
 
     //
     public void printInvoice(InvoiceEntry ief) {
-        new PrintInvoice().print(
-                "**********************************************************\n"
+        new PrintInvoice().print("**********************************************************\n"
                 + "Name: " + ief.jtf_name.getText() + " \n"
                 + "Address: " + ief.jtf_address.getText() + " \n"
                 + "City: " + ief.jtf_city.getText() + " \n"
                 + "Provice: " + ief.jtf_province.getText() + " \n"
                 + "Zip " + ief.jtf_zip.getText() + " \n"
-                + "Deposit: " + ief.jtf_deposit.getText()
+                + "Deposit: " + ief.jtf_deposit.getText() + " \n"
                 + "Product Bought: " + productItemString(
                         Integer.parseInt(ief.jtf_invoicenumber.getText())
                 )
@@ -100,6 +101,13 @@ public class ClientAction {
                 + "**********************************************************",
                 ief.jtf_customernumber.getText()
         );
+    }
+
+    //
+    public void displayProductList(InvoiceEntry ief){
+        for (Product product : new FindProduct().allProducts()) {
+            ief.jcbx_allproducts.addItem(product.getDescription());
+        }
     }
 
     //

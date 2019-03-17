@@ -67,6 +67,9 @@ public class Main implements ActionListener {
         if (source.equals(ieFrame.jbtn_writeinvoice)) {
             printInvoive_btn_action();
         }
+        if (source.equals(ieFrame.jbtn_listproduct)) {
+            listproduct_btn_action();
+        }
     }
 
     //
@@ -110,5 +113,9 @@ public class Main implements ActionListener {
 
     public void printInvoive_btn_action() {
         new ClientAction().printInvoice(this.ieFrame);
+    }
+
+    public void listproduct_btn_action() {
+        new ClientAction().displayProductList(this.ieFrame);
     }
 }
