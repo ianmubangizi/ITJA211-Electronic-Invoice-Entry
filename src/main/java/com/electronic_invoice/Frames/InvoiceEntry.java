@@ -72,7 +72,7 @@ public class InvoiceEntry extends JFrame {
     public final JTextArea jtxta_products = new JTextArea("Product 1\nProduct 2\nProduct 3\n");
     public final JScrollPane jslp_productbought = new JScrollPane(jtxta_products);
     public final JComboBox<InvoiceEntry> jcbx_allproducts = new JComboBox<>();
-    
+
     public InvoiceEntry() throws HeadlessException {
         initFrame();
     }

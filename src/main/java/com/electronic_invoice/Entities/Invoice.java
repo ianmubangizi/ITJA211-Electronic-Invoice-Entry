@@ -18,10 +18,10 @@ public class Invoice {
     public Invoice() {
     }
 
-    public Invoice(String invoice_number, String customer_number, String payment) {
-        this.invoice_number = 1;// Integer.parseInt(invoice_number);
-        this.customer_number = Integer.parseInt(customer_number);
-        this.payment = Double.parseDouble(payment);
+    public Invoice(int invoice_number, int customer_number, double payment) {
+        this.invoice_number = invoice_number;
+        this.customer_number = customer_number;
+        this.payment = payment;
     }
 
     public int getInvoice_number() {

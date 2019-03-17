@@ -15,21 +15,25 @@ import java.sql.Statement;
  *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
-public class DatabaseService {
+public final class DatabaseService {
 
     private Statement statement;
     private Connection connection;
 
+    // [Note], these are my Local MySQL settings, do change them
     private final String dbuser = "root";
     private final String dbpassword = "Kueyf2J5Z4Vb";
     private final String jdbc_driver = "com.mysql.cj.jdbc.Driver";
     private final String url = "jdbc:mysql://localhost:3306/orion";
 
+    public DatabaseService(){
+        setDbService();
+    }
+
     public void setDbService() {
         try {
             Class.forName(jdbc_driver);
             this.connection = DriverManager.getConnection(
-                    // Note, these are my Local MySQL settings, do change them
                     url, dbuser, dbpassword);
             setStatement(this.connection.createStatement());
         } catch (ClassNotFoundException | SQLException e) {
@@ -38,11 +42,12 @@ public class DatabaseService {
     }
 
     public Statement getStatement() {
-        if (this.statement == null)
+        if (this.statement == null) {
             try {
                 this.statement = this.connection.createStatement();
             } catch (SQLException e) {
             }
+        }
         return this.statement;
     }
 

@@ -10,6 +10,7 @@ package com.electronic_invoice.Entities;
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class Account {
+
     private String name;
     private int customer_number;
     private double balance;
@@ -17,6 +18,9 @@ public class Account {
     public Account() {
     }
 
+    /*
+    *
+    */
     public Account(String name, int customer_number, double balance) {
         this.name = name;
         this.customer_number = customer_number;
@@ -46,6 +50,5 @@ public class Account {
     public void setBalance(double balance) {
         this.balance = balance;
     }
-    
-    
+
 }

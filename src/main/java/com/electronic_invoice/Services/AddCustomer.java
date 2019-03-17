@@ -8,38 +8,26 @@ package com.electronic_invoice.Services;
 import com.electronic_invoice.Entities.Customer;
 
 //import java.sql.ResultSet;
-
 /**
  * AddCustomer
- * 
+ *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
-public class AddCustomer {
-    DatabaseService db = new DatabaseService();
+public final class AddCustomer {
 
     public AddCustomer(Customer c) {
         create(c);
     }
 
     public void create(Customer c) {
-        db.setDbService();
-        db.updateQuery("INSERT INTO `orion`.`customer` ("
-                + "`Name`, `Address`, `City`, `Province`, `Zip`, `Deposit`) VALUES ('" + c.getName() + "','"
-                + c.getAddress() + "','" + c.getCity() + "','" + c.getProvince() + "','" + c.getZip() + "',"
+        new DatabaseService().updateQuery("INSERT INTO `orion`.`customer` ("
+                + "`Name`, `Address`, `City`, `Province`, `Zip`, `Deposit`) "
+                + "VALUES ('"
+                + c.getName() + "','"
+                + c.getAddress() + "','"
+                + c.getCity() + "','"
+                + c.getProvince() + "','"
+                + c.getZip() + "',"
                 + c.getDeposit() + ")");
     }
-
-    // private String newCustomerNumber(int c) throws SQLException {
-    // ResultSet rs = db.getQuery(
-    // "SELECT `Customer_Number` "
-    // + "FROM `orion`.`customer` "
-    // + "WHERE `Customer_Number`="+ c +";"
-    // );
-    // while(rs.next()){
-    // return (Integer.toString(c).matches("\\d{1,200}[^.\\s]") ||
-    // c == rs.getInt("Customer_Number") ? "35142" : "1");
-    // }
-    // return "";
-    // }
-
 }

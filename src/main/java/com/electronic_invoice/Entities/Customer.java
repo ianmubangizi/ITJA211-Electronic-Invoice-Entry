@@ -6,12 +6,12 @@
 package com.electronic_invoice.Entities;
 
 // import com.electronic_invoice.Services.DatabaseService;
-
 /**
  *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class Customer {
+
     private int customer_number;
     private String name;
     private String address;
@@ -19,21 +19,29 @@ public class Customer {
     private String province;
     private String zip;
     private double deposit;
-    
-    // private DatabaseService db = new DatabaseService();
 
     /**
-     * 
-     * 
+     * Customer
+     *
+     * @param customer_number
+     * @param name
+     * @param address
+     * @param city
+     * @param province
+     * @param zip
+     * @param deposit
      */
-    public Customer(String name, String address, String city, String province, String zip, String deposit) {
-        this.customer_number = 1;
+    public Customer(int customer_number, String name, String address, String city, String province, String zip, double deposit) {
+        this.customer_number = customer_number;
         this.name = name;
         this.address = address;
         this.city = city;
         this.province = province;
         this.zip = zip;
-        this.deposit = Double.parseDouble(deposit);
+        this.deposit = deposit;
+    }
+
+    public Customer() {
     }
 
     public int getCustomer_number() {
@@ -91,5 +99,5 @@ public class Customer {
     public void setDeposit(double deposit) {
         this.deposit = deposit;
     }
-    
+
 }

@@ -5,6 +5,7 @@ package com.electronic_invoice.Utils;
  */
 public enum ECallTypes {
     ADD_CUSTOMER,
-    NO_CUSTOMER,
-    ADD_INVOICE_CUSTOMER
+    NEED_VAILD_CUSTOMERID,
+    ADD_INVOICE_CUSTOMER,
+    CUSTOMERID_TAKEN
 }

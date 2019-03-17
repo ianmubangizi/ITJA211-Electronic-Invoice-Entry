@@ -10,6 +10,7 @@ package com.electronic_invoice.Entities;
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class LineItem {
+
     private int invoice_number;
     private String product_code;
     private int quantity;
@@ -46,5 +47,5 @@ public class LineItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
+
 }

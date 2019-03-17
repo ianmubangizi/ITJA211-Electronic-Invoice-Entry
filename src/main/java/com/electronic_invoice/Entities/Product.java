@@ -10,6 +10,7 @@ package com.electronic_invoice.Entities;
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class Product {
+
     private String product_code;
     private String description;
     private double price;
@@ -46,6 +47,5 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
-    
-    
+
 }

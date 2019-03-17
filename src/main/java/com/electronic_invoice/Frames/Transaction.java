@@ -22,28 +22,28 @@ public class Transaction extends JFrame {
     private static final long serialVersionUID = 5764815429841719164L;
 
     public String frame_title = "Electronic Invoice Entry – Transaction";
-    
+
     //
     private final JLabel jl_name = new JLabel("Name");
     private final JLabel jl_customernumber = new JLabel("Customer Number");
     private final JLabel jl_balance = new JLabel("Balance");
-    
+
     //
     private final JTextField jtf_name = new JTextField();
     private final JTextField jtf_customernumber = new JTextField();
     private final JTextField jtf_balance = new JTextField();
-    
+
     //
     public final JButton jbtn_check = new JButton("Check Balance");
     public final JButton jbtn_deposit = new JButton("Deposit");
     public final JButton jbtn_calculate = new JButton("Calculate Payment & Deposit");
     public final JButton jbtn_transaction = new JButton("Transaction");
-    
-    public Transaction(){
+
+    public Transaction() {
         initFrame();
     }
-    
-    private void initFrame(){
+
+    private void initFrame() {
         setTitle(frame_title);
         setSize(500, 500);
         setResizable(false);
@@ -54,8 +54,8 @@ public class Transaction extends JFrame {
         getRootPane().setBorder(
                 BorderFactory.createMatteBorder(2, 2, 2, 2, Color.GREEN)
         );
-        
-        add(jl_name).setName("jl_name");;
+
+        add(jl_name).setName("jl_name");
         add(jtf_name).setName("jtf_name");
         add(jl_customernumber).setName("jl_customernumber");
         add(jtf_customernumber).setName("jtf_customernumber");
