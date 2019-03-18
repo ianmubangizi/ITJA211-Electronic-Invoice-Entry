@@ -104,6 +104,17 @@ public class ClientAction {
     }
 
     //
+    public void findProduct(InvoiceEntry ief){
+        Product product = new FindProduct().withProductId(
+            ief.jtf_productcode.getText()
+        );
+
+        ief.jtf_description.setText(product.getDescription());
+        ief.jtf_price.setText(String.valueOf(product.getPrice()));
+
+    }
+
+    //
     public void displayProductList(InvoiceEntry ief){
         for (Product product : new FindProduct().allProducts()) {
             ief.jcbx_allproducts.addItem(product.getDescription());

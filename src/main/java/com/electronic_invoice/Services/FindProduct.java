@@ -29,9 +29,8 @@ public class FindProduct implements IFindService {
         return 0;
     }
 
-    public Product withProductId(int id) {
-        ResultSet rs = db
-                .getQuery("SELECT * " + "FROM orion.product " + "WHERE product_code=" + id + ";");
+    public Product withProductId(String id) {
+        ResultSet rs = db.getQuery("SELECT * " + "FROM orion.product " + "WHERE product_code=" + id + ";");
         try {
             if (rs.next()) {
                 return new Product(
