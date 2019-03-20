@@ -1,5 +1,6 @@
 package com.electronic_invoice.Services;
 
+import com.electronic_invoice.Entities.Invoice;
 import com.electronic_invoice.Utils.IFindService;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -69,5 +70,21 @@ public class FindInvoice implements IFindService {
 
         }
         return 0;
+    }
+
+    public Invoice getInvoice(int id){
+        ResultSet rs = db.getQuery("SELECT * "
+                + "FROM orion.invoice "
+                + "WHERE customer_number=" + id + ";");
+        try {
+            if (rs.first()) {
+               return new Invoice(
+                    rs.getInt("invoice_number"), 
+                    rs.getInt("customer_number"), 
+                    rs.getDouble("payment"));
+            }
+        } catch (SQLException e) {
+        }
+        return null;
     }
 }

@@ -33,11 +33,7 @@ public class FindProduct implements IFindService {
         ResultSet rs = db.getQuery("SELECT * " + "FROM orion.product " + "WHERE product_code=" + id + ";");
         try {
             if (rs.next()) {
-                return new Product(
-                    rs.getString("product_code"),
-                    rs.getString("description"),
-                    rs.getInt("price")
-                );
+                return new Product(rs.getString("product_code"), rs.getString("description"), rs.getInt("price"));
             }
         } catch (SQLException e) {
 
@@ -45,24 +41,18 @@ public class FindProduct implements IFindService {
         return new Product();
     }
 
-    public ArrayList<Product> allProducts(){
-        ResultSet rs = db.getQuery(
-                "SELECT * FROM orion.product;"
-        );
+    public ArrayList<Product> allProducts() {
+        ResultSet rs = db.getQuery("SELECT * FROM orion.product;");
         try {
             ArrayList<Product> producList = new ArrayList<>();
             while (rs.next()) {
-                producList.add(new Product(
-                    rs.getString("product_code"),
-                    rs.getString("description"),
-                    rs.getInt("price")
-                ));
+                producList.add(
+                        new Product(rs.getString("product_code"), rs.getString("description"), rs.getInt("price")));
             }
             if (!producList.isEmpty()) {
                 return producList;
             }
-        }
-         catch (Exception e) {
+        } catch (Exception e) {
         }
         return new ArrayList<>();
     }

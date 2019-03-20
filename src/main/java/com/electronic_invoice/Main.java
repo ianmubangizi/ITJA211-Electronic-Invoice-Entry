@@ -5,15 +5,15 @@
  */
 package com.electronic_invoice;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import com.electronic_invoice.Frames.InvoiceEntry;
 import com.electronic_invoice.Frames.Transaction;
 import com.electronic_invoice.Utils.ClientAction;
 import com.electronic_invoice.Utils.ECallTypes;
-import com.electronic_invoice.Utils.Generate;
 import com.electronic_invoice.Utils.MessagePane;
 import com.electronic_invoice.Utils.MessagePane.EMessage;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  *
@@ -73,6 +73,9 @@ public class Main implements ActionListener {
         if(source.equals(ieFrame.jbtn_findproduct)){
             findproduct_btn_action();
         }
+        if(source.equals(ieFrame.jbtn_exit)){
+            ieFrame.dispose();
+        }
     }
 
     //
@@ -98,7 +101,6 @@ public class Main implements ActionListener {
                         + "Click the Add Customer Button then\n"
                         + "Try Adding an Invoice",
                         "Need a Customer Number - When Adding Invoice", EMessage.INFO);
-                ieFrame.jtf_customernumber.setText(String.valueOf(new Generate().nextCustomerNumber()));
                 break;
             default:
                 break;

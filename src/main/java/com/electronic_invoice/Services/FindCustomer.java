@@ -19,7 +19,7 @@ public class FindCustomer implements IFindService {
                         + "FROM orion.customer "
                         + "WHERE customer_number=" + id + ";");
         try {
-            if (rs.isFirst()) {
+            if (rs.first()) {
                 return true;
             }
         } catch (SQLException e) {

@@ -69,7 +69,7 @@ public class InvoiceEntry extends JFrame {
     public final JButton jbtn_writeinvoice = new JButton("Write Invoice");
     public final JButton jbtn_next = new JButton("Next");
 
-    public final JTextArea jtxta_products = new JTextArea("Product 1\nProduct 2\nProduct 3\n");
+    public final JTextArea jtxta_products = new JTextArea("List of Products e.g:\n116-456 x 2");
     public final JScrollPane jslp_productbought = new JScrollPane(jtxta_products);
     public final JComboBox<String> jcbx_allproducts = new JComboBox<>();
 

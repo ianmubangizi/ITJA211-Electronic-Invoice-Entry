@@ -47,14 +47,15 @@ public class ClientAction {
                     Integer.parseInt((ief.jtf_invoicenumber.getText().isEmpty())
                             ? "1" : ief.jtf_invoicenumber.getText()),
                     Integer.parseInt(ief.jtf_customernumber.getText()),
-                    Double.valueOf(ief.jtf_payment.getText())
+                    Double.valueOf(ief.jtf_payment.getText().isEmpty() ? "0": 
+                    ief.jtf_payment.getText())
             )
             );
         } catch (NumberFormatException e) {
             displayError(e);
             return;
         }
-        displayInvoiceNumber(ief);
+        displayInvoiceInfo(ief);
     }
 
     //
@@ -127,11 +128,10 @@ public class ClientAction {
     }
 
     //
-    private void displayInvoiceNumber(InvoiceEntry ief) {
-        ief.jtf_invoicenumber.setText(
-                "" + new FindInvoice().withQuery(
-                        "SELECT invoice_number FROM orion.invoice WHERE customer_number="
-                        + ief.jtf_customernumber.getText() + ";") + "");
+    private void displayInvoiceInfo(InvoiceEntry ief) {
+        Invoice invoice = new FindInvoice().getInvoice(Integer.parseInt(ief.jtf_customernumber.getText()));
+        ief.jtf_invoicenumber.setText(String.valueOf(invoice.getInvoice_number()));
+        ief.jtf_payment.setText(String.valueOf(invoice.getPayment()));
     }
 
     //
