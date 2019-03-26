@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.electronic_invoice.Entities;
 
-// import com.electronic_invoice.Services.DatabaseService;
 /**
- *
+ * Customer Entity Class
+ * 
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class Customer {
@@ -21,17 +16,20 @@ public class Customer {
     private double deposit;
 
     /**
-     * Customer
+     * Customer Constructor
      *
-     * @param customer_number
-     * @param name
-     * @param address
-     * @param city
-     * @param province
-     * @param zip
-     * @param deposit
+     * @param customer_number The Customer's number
+     * @param name            The name of the Customer
+     * @param address         The Customer's street address
+     * @param city            The name of City
+     * @param province        The province show be formated as follows
+     *                        <code> ZA-WC </code> where ZA is the country and WC is
+     *                        the short hand of the province
+     * @param zip             The zip should be a max of length of 5 integers
+     * @param deposit         The deposit the customer makes on creation
      */
-    public Customer(int customer_number, String name, String address, String city, String province, String zip, double deposit) {
+    public Customer(int customer_number, String name, String address, String city, String province, String zip,
+            double deposit) {
         this.customer_number = customer_number;
         this.name = name;
         this.address = address;

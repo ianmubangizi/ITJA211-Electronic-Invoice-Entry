@@ -29,9 +29,9 @@ public class Transaction extends JFrame {
     private final JLabel jl_balance = new JLabel("Balance");
 
     //
-    private final JTextField jtf_name = new JTextField();
-    private final JTextField jtf_customernumber = new JTextField();
-    private final JTextField jtf_balance = new JTextField();
+    public final JTextField jtf_name = new JTextField();
+    public final JTextField jtf_customernumber = new JTextField();
+    public final JTextField jtf_balance = new JTextField();
 
     //
     public final JButton jbtn_check = new JButton("Check Balance");

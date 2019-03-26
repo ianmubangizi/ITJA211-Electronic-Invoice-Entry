@@ -5,15 +5,15 @@
  */
 package com.electronic_invoice;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import com.electronic_invoice.Frames.InvoiceEntry;
 import com.electronic_invoice.Frames.Transaction;
 import com.electronic_invoice.Utils.ClientAction;
 import com.electronic_invoice.Utils.ECallTypes;
+import com.electronic_invoice.Utils.Helpers;
 import com.electronic_invoice.Utils.MessagePane;
 import com.electronic_invoice.Utils.MessagePane.EMessage;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -24,19 +24,27 @@ public class Main implements ActionListener {
     public Transaction tsFrame;
     public InvoiceEntry ieFrame;
     public MessagePane message_pane;
+    private final ClientAction action = new ClientAction();
 
     //
     public void initMain() {
-        this.ieFrame = new InvoiceEntry();
         this.tsFrame = new Transaction();
-        this.ieFrame.jbtn_exit.addActionListener(this);
+        this.ieFrame = new InvoiceEntry();
+        //
         this.ieFrame.jbtn_next.addActionListener(this);
+        this.ieFrame.jbtn_exit.addActionListener(this);
+        this.tsFrame.jbtn_check.addActionListener(this);
+        this.tsFrame.jbtn_deposit.addActionListener(this);
+        this.tsFrame.jbtn_calculate.addActionListener(this);
         this.ieFrame.jbtn_addinvoice.addActionListener(this);
+        this.tsFrame.jbtn_transaction.addActionListener(this);
         this.ieFrame.jbtn_addcustomer.addActionListener(this);
         this.ieFrame.jbtn_findproduct.addActionListener(this);
         this.ieFrame.jbtn_listproduct.addActionListener(this);
         this.ieFrame.jbtn_showinvoice.addActionListener(this);
         this.ieFrame.jbtn_writeinvoice.addActionListener(this);
+        
+        //
         this.tsFrame.jbtn_check.addActionListener(this);
         this.tsFrame.jbtn_deposit.addActionListener(this);
         this.tsFrame.jbtn_calculate.addActionListener(this);
@@ -59,22 +67,31 @@ public class Main implements ActionListener {
             addCustomer_btn_action(ECallTypes.ADD_CUSTOMER);
         }
         if (source.equals(ieFrame.jbtn_addinvoice)) {
-            addInvoice_btn_action();
+            action.createInvoice(this.ieFrame);
         }
         if (source.equals(ieFrame.jbtn_showinvoice)) {
-            showInvoice_btn_action();
+            action.showInvoice(this.ieFrame);
         }
         if (source.equals(ieFrame.jbtn_writeinvoice)) {
-            printInvoive_btn_action();
+            action.printInvoice(this.ieFrame);
         }
         if (source.equals(ieFrame.jbtn_listproduct)) {
-            listproduct_btn_action();
+            new Helpers().displayProductList(this.ieFrame);
         }
-        if(source.equals(ieFrame.jbtn_findproduct)){
-            findproduct_btn_action();
+        if (source.equals(ieFrame.jbtn_findproduct)) {
+            action.findProduct(this.ieFrame);
         }
-        if(source.equals(ieFrame.jbtn_exit)){
+        if (source.equals(ieFrame.jbtn_exit)) {
             ieFrame.dispose();
+        }
+        if(source.equals(tsFrame.jbtn_check)){
+            action.checkAccount(tsFrame, ieFrame);
+        }
+        if(source.equals(tsFrame.jbtn_deposit)){
+            action.addAccount(tsFrame);
+        }        
+        if(source.equals(tsFrame.jbtn_calculate)){
+            action.calcuteAndDeposit();//(tsFrame);
         }
     }
 
@@ -82,7 +99,7 @@ public class Main implements ActionListener {
     public void addCustomer_btn_action(ECallTypes t) {
         switch (t) {
             case ADD_CUSTOMER:
-                new ClientAction().createCustomer(this.ieFrame);
+                action.createCustomer(this.ieFrame);
                 break;
             case CUSTOMERID_TAKEN:
                 this.message_pane = new MessagePane(null,
@@ -90,7 +107,7 @@ public class Main implements ActionListener {
                 break;
             case NEED_VAILD_CUSTOMERID:
                 this.message_pane = new MessagePane(null,
-                        "Can't Create Invoice without a vaild Customer Number\n "
+                        "Can't Create Invoice without a vaild Customer Number\n"
                         + "Press Okay and Enter Customer Info to get a Number\n"
                         + "Click the Add Customer Button after inputting Customer Info",
                         "Adding Invoice Error", EMessage.ERROR);
@@ -100,31 +117,11 @@ public class Main implements ActionListener {
                         "Enter your Customer Details then\n"
                         + "Click the Add Customer Button then\n"
                         + "Try Adding an Invoice",
-                        "Need a Customer Number - When Adding Invoice", EMessage.INFO);
+                        "Need a Customer Number - When Adding Invoice",
+                        EMessage.INFO);
                 break;
             default:
                 break;
         }
-
-    }
-
-    public void addInvoice_btn_action() {
-        new ClientAction().createInvoice(this.ieFrame);
-    }
-
-    public void showInvoice_btn_action() {
-        new ClientAction().showInvoice(this.ieFrame);
-    }
-
-    public void printInvoive_btn_action() {
-        new ClientAction().printInvoice(this.ieFrame);
-    }
-
-    public void listproduct_btn_action() {
-        new ClientAction().displayProductList(this.ieFrame);
-    }
-
-    public void findproduct_btn_action() {
-        new ClientAction().findProduct(this.ieFrame);
     }
 }

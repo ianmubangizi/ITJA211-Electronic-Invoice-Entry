@@ -26,15 +26,14 @@ public final class DatabaseService {
     private final String jdbc_driver = "com.mysql.cj.jdbc.Driver";
     private final String url = "jdbc:mysql://localhost:3306/orion";
 
-    public DatabaseService(){
+    public DatabaseService() {
         setDbService();
     }
 
     public void setDbService() {
         try {
             Class.forName(jdbc_driver);
-            this.connection = DriverManager.getConnection(
-                    url, dbuser, dbpassword);
+            this.connection = DriverManager.getConnection(url, dbuser, dbpassword);
             setStatement(this.connection.createStatement());
         } catch (ClassNotFoundException | SQLException e) {
 

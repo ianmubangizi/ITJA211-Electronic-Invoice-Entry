@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.electronic_invoice.Entities;
 
 /**
+ * Invoice Entity Class
  *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
@@ -18,6 +14,15 @@ public class Invoice {
     public Invoice() {
     }
 
+    /**
+     * Invoice Constructor
+     * 
+     * @param invoice_number  The Invoice number <strong>Note:</strong> This must be
+     *                        unique per instance
+     * @param customer_number Similar to the
+     *                        <code>Customer(int customer_number, ...){}</code>
+     * @param payment
+     */
     public Invoice(int invoice_number, int customer_number, double payment) {
         this.invoice_number = invoice_number;
         this.customer_number = customer_number;
@@ -47,5 +52,5 @@ public class Invoice {
     public void setPayment(double payment) {
         this.payment = payment;
     }
-    
+
 }
