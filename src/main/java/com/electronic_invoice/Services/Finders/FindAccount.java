@@ -16,16 +16,6 @@ public class FindAccount {
 
     public Account getById(int id) {
         if (new FindCustomer().byId(id)) {
-//                ResultSet rs = db.getQuery("SELECT * "
-//                        + "FROM orion.account "
-//                        + "WHERE customer_number=" + id + ";");
-//                if (rs.first()) {
-//                    return new Account(
-//                            rs.getString("name"),
-//                            rs.getInt("customer_number"),
-//                            rs.getDouble("balance")
-//                    );
-//                }
             Customer customer = new FindCustomer().getCustomer(id);
             return new Account(
                     customer.getName(),

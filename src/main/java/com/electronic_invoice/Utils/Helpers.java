@@ -19,7 +19,7 @@ import com.electronic_invoice.Services.Finders.FindProduct;
 public class Helpers {
 
     //
-    public String makeItemString(int id) {
+    public String itemString(int id) {
         String product_list = "";
         product_list = new FindLineItem().withInvoiceId(id).stream().map(
                 (product) -> product.getProduct_code() + " x "
@@ -86,19 +86,17 @@ public class Helpers {
     }
 
     //
-    public void displayErrors(Exception e) {
+    public void displayAnyErrors(Exception e) {
         String msg = "";
-        if (NumberFormatException.class.isInstance(e)) {
-            switch (e.getMessage()) {
-                case "For input string: \"\"":
-                case "empty String":
-                    msg = "Field Has Empty Value";
-                    break;
-                default:
-                    break;
-            }
-            new MessagePane(null, "Please Input Correct values into Form fields",
-                    "Invaild Input [" + msg + "]", MessagePane.EMessage.ERROR);
+        switch (e.getMessage()) {
+            case "For input string: \"\"":
+            case "empty String":
+                msg = "Field Has Empty Value";
+                break;
+            default:
+                break;
         }
+        new MessagePane(null, "Please Input Correct values into Form fields",
+                "Invaild Input [" + msg + "]", MessagePane.EMessage.ERROR);
     }
 }

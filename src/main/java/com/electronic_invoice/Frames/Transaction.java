@@ -5,16 +5,18 @@
  */
 package com.electronic_invoice.Frames;
 
-import com.electronic_invoice.Utils.ClientAction;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import com.electronic_invoice.Utils.ClientAction;
 
 /**
  *
@@ -90,14 +92,10 @@ public class Transaction extends JFrame implements ActionListener {
             action.addAccount(this);
         }        
         if(source.equals(jbtn_calculate)){
-            // action.calcuteAndDeposit(
-            //         Integer.parseInt("")
-            // );
+            action.calculateAndDeposit(this);
         }
         if(source.equals(jbtn_transaction)){
-            // action.calcuteAndDeposit(
-            //         Integer.parseInt("")
-            // );
+
         }
     }
 
