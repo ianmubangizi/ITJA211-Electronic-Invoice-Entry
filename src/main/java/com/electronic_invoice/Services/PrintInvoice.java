@@ -12,9 +12,8 @@ public class PrintInvoice {
     public void print(String doc, String id) {
         try {
             String filename = "Customer Invoice [" + id + "].txt";
-            System.out.println("Printing File: " + filename);
-            File file = new File(filename);
-            try (PrintWriter printfile = new PrintWriter(file)) {
+            try (PrintWriter printfile = new PrintWriter(new File(filename))) {
+                System.out.println("Printing File: " + filename);
                 printfile.print(doc);
             }
         } catch (FileNotFoundException ex) {

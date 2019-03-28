@@ -14,10 +14,6 @@ import com.electronic_invoice.Services.DatabaseService;
  */
 public final class AddAccount {
     
-    public void AddAccount(Account a){
-        create(a);
-    }
-    
     public void create(Account account) {
         new DatabaseService()
                 .updateQuery(

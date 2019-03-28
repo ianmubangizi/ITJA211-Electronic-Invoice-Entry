@@ -7,11 +7,6 @@ package com.electronic_invoice.Services.Finders;
 
 import com.electronic_invoice.Entities.Account;
 import com.electronic_invoice.Entities.Customer;
-import com.electronic_invoice.Services.DatabaseService;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -19,31 +14,23 @@ import java.util.logging.Logger;
  */
 public class FindAccount {
 
-    DatabaseService db = new DatabaseService();
-
     public Account getById(int id) {
         if (new FindCustomer().byId(id)) {
-            try {
-                ResultSet rs = db.getQuery("SELECT * "
-                        + "FROM orion.account "
-                        + "WHERE customer_number=" + id + ";");
-                if (rs.first()) {
-                    return new Account(
-                            rs.getString("name"),
-                            rs.getInt("customer_number"),
-                            rs.getDouble("balance")
-                    );
-                } else {
-                    Customer customer = new FindCustomer().getCustomer(id);
-                    Account account = new Account(
-                            customer.getName(),
-                            customer.getCustomer_number(),
-                            customer.getDeposit());
-                    return account;
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(FindAccount.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//                ResultSet rs = db.getQuery("SELECT * "
+//                        + "FROM orion.account "
+//                        + "WHERE customer_number=" + id + ";");
+//                if (rs.first()) {
+//                    return new Account(
+//                            rs.getString("name"),
+//                            rs.getInt("customer_number"),
+//                            rs.getDouble("balance")
+//                    );
+//                }
+            Customer customer = new FindCustomer().getCustomer(id);
+            return new Account(
+                    customer.getName(),
+                    customer.getCustomer_number(),
+                    customer.getDeposit());
         }
         return new Account();
     }

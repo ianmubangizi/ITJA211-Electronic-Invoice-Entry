@@ -77,7 +77,7 @@ public class FindInvoice implements IFindService {
         ResultSet rs = db.getQuery("SELECT * " + "FROM orion.invoice "
                 + "WHERE customer_number=" + id + ";");
         try {
-            if (rs.first()) {
+            if (rs.last()) {
                 return new Invoice(rs.getInt("invoice_number"),
                         rs.getInt("customer_number"), rs.getDouble("payment"));
             }

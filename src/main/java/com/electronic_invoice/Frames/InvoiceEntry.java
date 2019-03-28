@@ -5,9 +5,12 @@
  */
 package com.electronic_invoice.Frames;
 
+import com.electronic_invoice.Utils.ClientAction;
+import com.electronic_invoice.Utils.Helpers;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,11 +24,12 @@ import javax.swing.JTextField;
  *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
-public class InvoiceEntry extends JFrame {
+public class InvoiceEntry extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 2720710036607580794L;
-
-    public String frame_title = "Electronic Invoice Entry";
+    private final ClientAction action = new ClientAction();
+    private static InvoiceEntry frame = null;
+    private final String frame_title = "Electronic Invoice Entry";
 
     //
     private final JLabel jl_name = new JLabel("Name");
@@ -73,8 +77,14 @@ public class InvoiceEntry extends JFrame {
     public final JScrollPane jslp_productbought = new JScrollPane(jtxta_products);
     public final JComboBox<String> jcbx_allproducts = new JComboBox<>();
 
-    public InvoiceEntry() throws HeadlessException {
+    public InvoiceEntry() {
+        frame = this;
         initFrame();
+    }
+
+    public static void main(String[] args) {
+        new InvoiceEntry();
+        new Transaction();
     }
 
     //
@@ -130,5 +140,49 @@ public class InvoiceEntry extends JFrame {
         add(jbtn_exit).setName("jbtn_exit");
         add(jbtn_writeinvoice).setName("jbtn_writeinvoice");
         add(jbtn_next).setName("jbtn_next");
+
+        jbtn_next.addActionListener(this);
+        jbtn_exit.addActionListener(this);
+        jbtn_addinvoice.addActionListener(this);
+        jbtn_addcustomer.addActionListener(this);
+        jbtn_findproduct.addActionListener(this);
+        jbtn_listproduct.addActionListener(this);
+        jbtn_showinvoice.addActionListener(this);
+        jbtn_writeinvoice.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+        System.out.println(e.getActionCommand());
+        if (source.equals(jbtn_next)) {
+            Transaction.getTransactionFrame().setVisible(true);
+        }
+        if (source.equals(jbtn_exit)) {
+            getTransactionFrame().dispose();
+            Transaction.getTransactionFrame().dispose();
+        }
+        if (source.equals(jbtn_addinvoice)) {
+            action.createInvoice(this);
+        }
+        if (source.equals(jbtn_addcustomer)) {
+            action.addCustomer(this);
+        }
+        if (source.equals(jbtn_findproduct)) {
+            action.findProduct(this);
+        }
+        if (source.equals(jbtn_listproduct)) {
+            new Helpers().displayProductList(this);
+        }
+        if (source.equals(jbtn_showinvoice)) {
+            action.showInvoice(this);
+        }
+        if (source.equals(jbtn_writeinvoice)) {
+            action.printInvoice(this);
+        }
+    }
+
+    public static InvoiceEntry getTransactionFrame() {
+        return frame;
     }
 }

@@ -3,7 +3,6 @@ package com.electronic_invoice.Utils;
 import com.electronic_invoice.Entities.Account;
 import com.electronic_invoice.Entities.Customer;
 import com.electronic_invoice.Entities.Invoice;
-import com.electronic_invoice.Entities.LineItem;
 import com.electronic_invoice.Entities.Product;
 import com.electronic_invoice.Frames.InvoiceEntry;
 import com.electronic_invoice.Frames.Transaction;
@@ -15,8 +14,6 @@ import com.electronic_invoice.Services.Finders.FindCustomer;
 import com.electronic_invoice.Services.Finders.FindInvoice;
 import com.electronic_invoice.Services.Finders.FindProduct;
 import com.electronic_invoice.Services.PrintInvoice;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  * Action
@@ -28,9 +25,9 @@ public class ClientAction {
     Helpers makeUseOf = new Helpers();
 
     //
-    public void createCustomer(InvoiceEntry ief) {
+    public void addCustomer(InvoiceEntry ief) {
         try {
-            new AddCustomer(new Customer(
+            new AddCustomer().create(new Customer(
                     Integer.parseInt(
                             (ief.jtf_customernumber.getText().isEmpty())
                             ? "1" : ief.jtf_customernumber.getText()),
@@ -41,7 +38,7 @@ public class ClientAction {
                     ief.jtf_zip.getText(),
                     Double.valueOf(ief.jtf_deposit.getText())));
         } catch (NumberFormatException e) {
-            makeUseOf.displayError(e);
+            makeUseOf.displayErrors(e);
             return;
         }
         makeUseOf.displayCustomerNumber(ief);
@@ -50,16 +47,15 @@ public class ClientAction {
     //
     public void createInvoice(InvoiceEntry ief) {
         try {
-            new AddInvoice(new Invoice(
+            new AddInvoice().create(new Invoice(
                     Integer.parseInt((ief.jtf_invoicenumber.getText().isEmpty())
                             ? "1" : ief.jtf_invoicenumber.getText()),
                     Integer.parseInt(ief.jtf_customernumber.getText()),
                     Double.valueOf(ief.jtf_payment.getText().isEmpty() ? "0.0"
                             : ief.jtf_payment.getText())
-            )
-            );
+            ));
         } catch (NumberFormatException e) {
-            makeUseOf.displayError(e);
+            makeUseOf.displayErrors(e);
             return;
         }
         makeUseOf.displayInvoiceInfo(ief);
@@ -92,12 +88,13 @@ public class ClientAction {
             );
             ief.jtf_payment.setText(String.valueOf(invoice.getPayment()));
         } catch (NumberFormatException e) {
-            makeUseOf.displayError(e);
+            makeUseOf.displayErrors(e);
         }
     }
 
     //
     public void printInvoice(InvoiceEntry ief) {
+        try {
         new PrintInvoice().print(
                 "**********************************************************\n"
                 + "Name: " + ief.jtf_name.getText() + " \n"
@@ -114,6 +111,9 @@ public class ClientAction {
                 + "**********************************************************",
                 ief.jtf_customernumber.getText()
         );
+        } catch (NumberFormatException e) {
+            makeUseOf.displayErrors(e);
+        }
     }
 
     //
@@ -127,6 +127,7 @@ public class ClientAction {
 
     //
     public void checkAccount(Transaction tsf, InvoiceEntry ief) {
+        try{
         Account account = new FindAccount().getById(Integer.parseInt(
                 tsf.jtf_customernumber.getText().isEmpty()
                 ? ief.jtf_customernumber.getText()
@@ -138,27 +139,33 @@ public class ClientAction {
                 account.getCustomer_number())
         );
         tsf.jtf_balance.setText(String.valueOf(account.getBalance()));
+                } catch (NumberFormatException e) {
+            makeUseOf.displayErrors(e);
+        }
     }
 
     public void addAccount(Transaction tsf) {
-        new AddAccount().create(new Account(tsf.jtf_name.getText(),
-                (new FindCustomer().byId(Integer.parseInt(
-                        tsf.jtf_customernumber.getText()))
+        try{
+        new AddAccount().create(new Account(
+                tsf.jtf_name.getText(),
+                (new FindCustomer().byId(
+                        Integer.parseInt(tsf.jtf_customernumber.getText()))
                 ? Integer.parseInt(tsf.jtf_customernumber.getText()) : null),
                 Double.valueOf(tsf.jtf_balance.getText()))
         );
+        } catch (NumberFormatException e) {
+            makeUseOf.displayErrors(e);
+        }
     }
 
-    public void calcuteAndDeposit() {
-        ArrayList<LineItem> items = new ArrayList<>();
-        int quantity;
-        double price;
-        int products = Integer.parseInt(JOptionPane.showInputDialog(null,
-                "Number of Products Bought")
-        );
-        while(products > 0){
-            items.add(new LineItem());
-            products--;
-        }
+    public void calcuteAndDeposit(int id) {
+//        ArrayList<LineItem> items = new ArrayList<>();
+//        int products = Integer.parseInt(JOptionPane.showInputDialog(null,
+//                "Number of Products: ")
+//        );
+//        while (products > 0) {
+//            items.add(new LineItem());
+//            products--;
+//        }
     }
 }

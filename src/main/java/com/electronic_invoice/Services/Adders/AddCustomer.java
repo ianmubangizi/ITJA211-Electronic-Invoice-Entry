@@ -17,11 +17,6 @@ import com.electronic_invoice.Services.DatabaseService;
  */
 public final class AddCustomer {
 
-    public AddCustomer(Customer c) {
-        create(c);
-    }
-
-
     public void create(Customer customer) {
         new DatabaseService().updateQuery("INSERT INTO `orion`.`customer` ("
                 + "`Name`, `Address`, `City`, `Province`, `Zip`, `Deposit`) "

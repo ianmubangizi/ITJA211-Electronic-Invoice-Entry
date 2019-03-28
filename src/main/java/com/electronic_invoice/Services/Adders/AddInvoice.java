@@ -1,10 +1,10 @@
 package com.electronic_invoice.Services.Adders;
 
 import com.electronic_invoice.Entities.Invoice;
-import com.electronic_invoice.Main;
 import com.electronic_invoice.Services.DatabaseService;
 import com.electronic_invoice.Services.Finders.FindCustomer;
 import com.electronic_invoice.Utils.ECallTypes;
+import com.electronic_invoice.Utils.Helpers;
 import com.electronic_invoice.Utils.ICustomerNotFound;
 
 /**
@@ -13,11 +13,7 @@ import com.electronic_invoice.Utils.ICustomerNotFound;
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public final class AddInvoice implements ICustomerNotFound {
-
-    public AddInvoice(Invoice invoice) {
-        create(invoice);
-    }
-
+    
     public void create(Invoice invoice) {
         new DatabaseService()
                 .updateQuery(
@@ -32,10 +28,10 @@ public final class AddInvoice implements ICustomerNotFound {
 
         switch (t) {
         case NEED_VAILD_CUSTOMERID:
-            new Main().addCustomer_btn_action(ECallTypes.NEED_VAILD_CUSTOMERID);
+            new Helpers().addCustomer(ECallTypes.NEED_VAILD_CUSTOMERID);
             break;
         case ADD_INVOICE_CUSTOMER:
-            new Main().addCustomer_btn_action(ECallTypes.ADD_INVOICE_CUSTOMER);
+            new Helpers().addCustomer(ECallTypes.ADD_INVOICE_CUSTOMER);
             break;
         default:
             break;

@@ -5,8 +5,11 @@
  */
 package com.electronic_invoice.Frames;
 
+import com.electronic_invoice.Utils.ClientAction;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,10 +20,11 @@ import javax.swing.JTextField;
  *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
-public class Transaction extends JFrame {
+public class Transaction extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 5764815429841719164L;
-
+    private static Transaction frame = null;
+    private final ClientAction action = new ClientAction();
     public String frame_title = "Electronic Invoice Entry – Transaction";
 
     //
@@ -40,6 +44,7 @@ public class Transaction extends JFrame {
     public final JButton jbtn_transaction = new JButton("Transaction");
 
     public Transaction() {
+        frame = this;
         initFrame();
     }
 
@@ -65,5 +70,38 @@ public class Transaction extends JFrame {
         add(jbtn_deposit).setName("jbtn_deposit");
         add(jbtn_calculate).setName("jbtn_calculate");
         add(jbtn_transaction).setName("jbtn_transaction");
+        
+                //
+        jbtn_check.addActionListener(this);
+        jbtn_deposit.addActionListener(this);
+        jbtn_calculate.addActionListener(this);
+        jbtn_transaction.addActionListener(this);
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+                Object source = e.getSource();
+        System.out.println(e.getActionCommand());
+
+        if(source.equals(jbtn_check)){
+            action.checkAccount(this, InvoiceEntry.getTransactionFrame());
+        }
+        if(source.equals(jbtn_deposit)){
+            action.addAccount(this);
+        }        
+        if(source.equals(jbtn_calculate)){
+            // action.calcuteAndDeposit(
+            //         Integer.parseInt("")
+            // );
+        }
+        if(source.equals(jbtn_transaction)){
+            // action.calcuteAndDeposit(
+            //         Integer.parseInt("")
+            // );
+        }
+    }
+
+	public static Transaction getTransactionFrame() {
+		return frame;
+	}
 }
