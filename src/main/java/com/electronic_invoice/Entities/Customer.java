@@ -39,61 +39,120 @@ public class Customer {
         this.deposit = deposit;
     }
 
+    /**
+     *
+     */
     public Customer() {
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCustomer_number() {
         return customer_number;
     }
 
+    /**
+     *
+     * @param customer_number
+     */
     public void setCustomer_number(int customer_number) {
         this.customer_number = customer_number;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     *
+     * @param address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     *
+     * @param city
+     */
     public void setCity(String city) {
         this.city = city;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getProvince() {
         return province;
     }
 
+    /**
+     *
+     * @param province
+     */
     public void setProvince(String province) {
         this.province = province;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getZip() {
         return zip;
     }
 
+    /**
+     *
+     * @param zip
+     */
     public void setZip(String zip) {
         this.zip = zip;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getDeposit() {
         return deposit;
     }
 
+    /**
+     *
+     * @param deposit
+     */
     public void setDeposit(double deposit) {
         this.deposit = deposit;
     }

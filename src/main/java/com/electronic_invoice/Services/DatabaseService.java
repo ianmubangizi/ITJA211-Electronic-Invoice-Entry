@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.electronic_invoice.Services;
 
 import java.sql.Connection;
@@ -20,16 +15,34 @@ public final class DatabaseService {
     private Statement statement;
     private Connection connection;
 
-    // [Note], these are my Local MySQL settings, do change them
+    /**
+     * [Note] These are my Local MySQL settings, do change them mysql-connector
+     * should be downloaded from maven repo using pom.xml
+     */
     private final String dbuser = "root";
-    private final String dbpassword = "Kueyf2J5Z4Vb";
-    private final String jdbc_driver = "com.mysql.cj.jdbc.Driver";
+    private final String dbpassword = "Kueyf2J5Z4Vb"; // use [ ""; ] for no password 
+    private final String jdbc_driver = "com.mysql.cj.jdbc.Driver"; // use [ "com.mysql.jdbc.Driver"; ] for older mysql-connector
     private final String url = "jdbc:mysql://localhost:3306/orion";
+    private static DatabaseService service = null;
 
-    public DatabaseService() {
+    private DatabaseService() {
         setDbService();
+        service = this;
     }
 
+    /**
+     *
+     * @return
+     */
+    public static DatabaseService databaseService() {
+        if (service == null)
+            new DatabaseService();
+        return service;
+    }
+
+    /**
+     *
+     */
     public void setDbService() {
         try {
             Class.forName(jdbc_driver);
@@ -40,6 +53,10 @@ public final class DatabaseService {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Statement getStatement() {
         if (this.statement == null) {
             try {
@@ -50,10 +67,19 @@ public final class DatabaseService {
         return this.statement;
     }
 
+    /**
+     *
+     * @param statement
+     */
     public void setStatement(Statement statement) {
         this.statement = statement;
     }
 
+    /**
+     *
+     * @param sql
+     * @return
+     */
     public ResultSet getQuery(String sql) {
         try {
             return getStatement().executeQuery(sql);
@@ -62,6 +88,10 @@ public final class DatabaseService {
         return null;
     }
 
+    /**
+     *
+     * @param sql
+     */
     public void updateQuery(String sql) {
         try {
             getStatement().executeUpdate(sql);

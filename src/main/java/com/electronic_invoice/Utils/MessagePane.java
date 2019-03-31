@@ -10,6 +10,13 @@ public class MessagePane extends JOptionPane {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     *
+     * @param parentComponent
+     * @param message
+     * @param title
+     * @param type
+     */
     public MessagePane(Component parentComponent, String message, String title, EMessage type) {
         switch (type) {
             case ERROR:
@@ -26,9 +33,24 @@ public class MessagePane extends JOptionPane {
         }
     }
 
+    /**
+     *
+     */
     public enum EMessage {
+
+        /**
+         *
+         */
         ERROR,
+
+        /**
+         *
+         */
         SUCCESS,
+
+        /**
+         *
+         */
         INFO;
     }
 }

@@ -1,16 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.electronic_invoice.Utils;
 
 import com.electronic_invoice.Entities.Invoice;
+import com.electronic_invoice.Entities.LineItem;
+import com.electronic_invoice.Entities.Product;
+import com.electronic_invoice.Entities.Queue;
 import com.electronic_invoice.Frames.InvoiceEntry;
-import com.electronic_invoice.Services.Finders.FindCustomer;
-import com.electronic_invoice.Services.Finders.FindInvoice;
-import com.electronic_invoice.Services.Finders.FindLineItem;
-import com.electronic_invoice.Services.Finders.FindProduct;
+import com.electronic_invoice.Frames.Transaction;
+import static com.electronic_invoice.Services.Finders.FindCustomer.findCustomer;
+import static com.electronic_invoice.Services.Finders.FindInvoice.findInvoice;
+import static com.electronic_invoice.Services.Finders.FindLineItem.findLineItem;
+import static com.electronic_invoice.Services.Finders.FindProduct.findProduct;
+import java.util.ArrayList;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -18,25 +21,139 @@ import com.electronic_invoice.Services.Finders.FindProduct;
  */
 public class Helpers {
 
+    double payment;
+    double total = 0;
+    double deposit;
+    JTextField price = new JTextField();
+    JTextField invoice_id = new JTextField();
+    JTextField quantity = new JTextField();
+    JComboBox<String> list = new JComboBox<>();
+    ArrayList<LineItem> items = new ArrayList<>();
+    ArrayList<Object[]> displays = new ArrayList<>();
+    ArrayList<Queue> transactions = new ArrayList<>();
+    ArrayList<Product> products = findProduct().allProducts();
+
+    Object[] inputs = {
+        "Select Product", list,
+        "Quantity", quantity,
+        "Price", price,
+        "Invoice Number", invoice_id
+    };
+
     //
-    public String itemString(int id) {
+
+    /**
+     *
+     * @param count
+     */
+    public void receviceProducts(int count) {
+        products.forEach((product) -> {
+            list.addItem(product.toString());
+        });
+        list.addActionListener((e) -> price.setText(
+                String.valueOf(products.get(list.getSelectedIndex()).getPrice()))
+        );
+        deposit = Double.valueOf(Transaction.getFrame().jtf_balance.getText());
+        invoice_id.setText(InvoiceEntry.getFrame().jtf_invoicenumber.getText());
+        transactions.add(new Queue(invoice_id.getText(), 0,
+                Double.valueOf(Transaction.getFrame().jtf_balance.getText()))
+        );
+
+        for (int i = 1; i <= count; i++) {
+            JOptionPane.showMessageDialog(null, inputs, "Product [" + i + "]", JOptionPane.PLAIN_MESSAGE);
+            items.add(new LineItem(
+                    Integer.parseInt(invoice_id.getText()),
+                    products.get(list.getSelectedIndex()).getProduct_code(),
+                    Integer.parseInt(quantity.getText())));
+
+            transactions.stream().map((t) -> {
+                payment = Integer.parseInt(quantity.getText()) * Double.parseDouble(price.getText());
+                return t;
+            }).map((t) -> {
+                deposit = deposit - payment;
+                return t;
+            }).map((t) -> {
+                total = total + payment;
+                return t;
+            }).map((t) -> {
+                t.setDeposit(deposit);
+                return t;
+            }).forEachOrdered((t) -> {
+                t.setPayment(total);
+            });
+        }
+    }
+
+    //s
+
+    /**
+     *
+     */
+    public void confirmTransaction() {
+        items.forEach((item) -> {
+            Product product = findProduct().withId(item.getProduct_code());
+            Object obj[] = {
+                "Product: " + product.getDescription(),
+                "Quantity: " + item.getQuantity(),
+                "Price R" + product.getPrice(),
+                "Total Payment: " + (product.getPrice() * item.getQuantity()),
+                "Invoice Number: " + item.getInvoice_number(),
+                "\n------------------------------------------------------------"
+            };
+            displays.add(obj);
+        });
+
+        JOptionPane.showMessageDialog(null, displays.toArray(),
+                "Accounts Payable",
+                JOptionPane.PLAIN_MESSAGE);
+    }
+
+    //
+
+    /**
+     *
+     * @param id
+     * @param t
+     * @return
+     */
+    public String lineItemString(int id, ECallTypes t) {
         String product_list = "";
-        product_list = new FindLineItem().withInvoiceId(id).stream().map(
-                (product) -> product.getProduct_code() + " x "
-                + product.getQuantity() + "\n").reduce(
-                        product_list, String::concat
-                );
+        ArrayList<LineItem> _items = findLineItem().withInvoiceId(id);
+        int i = 0;
+        switch (t) {
+            case WITH_TABS:
+                for (LineItem item : _items) {
+                    i++;
+                    product_list += (i == _items.size()
+                            ? item.getProduct_code() + " x "
+                            + item.getQuantity() + "\n"
+                            : item.getProduct_code() + " x "
+                            + item.getQuantity() + "\n\t\t");
+                }
+                break;
+            case WRAP:
+                product_list = _items.stream().map((item)
+                        -> item.getProduct_code() + " x "
+                        + item.getQuantity() + "\n").reduce(
+                        product_list, String::concat);
+        }
         return product_list;
     }
 
     //
+
+    /**
+     *
+     * @param t
+     */
     public void addCustomer(ECallTypes t) {
         switch (t) {
-            case ADD_CUSTOMER:
+            case ADD_CUSTOMER: {
                 new ClientAction().addCustomer(
-                        InvoiceEntry.getTransactionFrame()
+                        InvoiceEntry.getFrame()
                 );
-                break;
+            }
+            break;
             case CUSTOMERID_TAKEN:
                 new MessagePane(null,
                         "The ", "Adding Customer Error", MessagePane.EMessage.ERROR);
@@ -62,23 +179,37 @@ public class Helpers {
     }
 
     //
+
+    /**
+     *
+     * @param ief
+     */
     public void displayProductList(InvoiceEntry ief) {
-        new FindProduct().allProducts().forEach((product) -> {
-            ief.jcbx_allproducts.addItem(product.getDescription() + "  [Code:  "
-                    + product.getProduct_code() + "]");
+        findProduct().allProducts().forEach((product) -> {
+            ief.jcbx_allproducts.addItem(product.getDescription());
         });
     }
 
     //
+
+    /**
+     *
+     * @param ief
+     */
     public void displayCustomerNumber(InvoiceEntry ief) {
         ief.jtf_customernumber.setText(String.valueOf(
-                new FindCustomer().lastCreatedId())
+                findCustomer().lastCreatedId())
         );
     }
 
     //
+
+    /**
+     *
+     * @param ief
+     */
     public void displayInvoiceInfo(InvoiceEntry ief) {
-        Invoice invoice = new FindInvoice().getInvoice(Integer.parseInt(
+        Invoice invoice = findInvoice().getInvoice(Integer.parseInt(
                 ief.jtf_customernumber.getText()));
         ief.jtf_invoicenumber.setText(String.valueOf(invoice.getInvoice_number())
         );
@@ -86,6 +217,11 @@ public class Helpers {
     }
 
     //
+
+    /**
+     *
+     * @param e
+     */
     public void displayAnyErrors(Exception e) {
         String msg = "";
         switch (e.getMessage()) {
@@ -93,6 +229,8 @@ public class Helpers {
             case "empty String":
                 msg = "Field Has Empty Value";
                 break;
+            case "Customer Aready Exists":
+                msg = "Customer Aready Exists";
             default:
                 break;
         }

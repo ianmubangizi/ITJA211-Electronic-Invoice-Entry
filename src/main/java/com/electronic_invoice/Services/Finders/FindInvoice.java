@@ -1,7 +1,7 @@
 package com.electronic_invoice.Services.Finders;
 
 import com.electronic_invoice.Entities.Invoice;
-import com.electronic_invoice.Services.DatabaseService;
+import static com.electronic_invoice.Services.DatabaseService.databaseService;
 import com.electronic_invoice.Utils.IFindService;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,13 +11,33 @@ import java.sql.SQLException;
  */
 public class FindInvoice implements IFindService {
 
-    DatabaseService db = new DatabaseService();
+    private static FindInvoice service = null;
 
+    private FindInvoice() {
+        service = this;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static FindInvoice findInvoice() {
+        if (service == null)
+            new FindInvoice();
+        return service;
+    }
+    
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
-    public boolean byId(int id) {
-        ResultSet rs = db
-                .getQuery("SELECT invoice_number " + "FROM orion.invoice "
-                        + "WHERE invoice_number=" + id + ";");
+    public boolean findId(int id) {
+        ResultSet rs = databaseService().getQuery(String.format(
+                "SELECT invoice_number FROM orion.invoice "
+                + "WHERE invoice_number=%s;", id)
+        );
         try {
             if (rs.isFirst()) {
                 return true;
@@ -28,15 +48,17 @@ public class FindInvoice implements IFindService {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int lastCreatedId() {
-        ResultSet rs = db.getQuery("SELECT invoice_number "
-                + "FROM orion.invoice ;");
+        ResultSet rs = databaseService().getQuery(
+                "SELECT invoice_number FROM orion.invoice;");
         try {
             if (rs.last()) {
-
                 return rs.getInt("invoice_number");
-
             }
         } catch (SQLException e) {
 
@@ -44,9 +66,13 @@ public class FindInvoice implements IFindService {
         return 0;
     }
 
-    @Override
+    /**
+     *
+     * @param sql
+     * @return
+     */
     public int withQuery(String sql) {
-        ResultSet rs = db.getQuery(sql);
+        ResultSet rs = databaseService().getQuery(sql);
         try {
             while (rs.next()) {
                 if (rs.isLast()) {
@@ -59,10 +85,15 @@ public class FindInvoice implements IFindService {
         return 0;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public int withInvoiceId(int id) {
-        ResultSet rs = db
-                .getQuery("SELECT invoice_number " + "FROM orion.invoice "
-                        + "WHERE invoice_number=" + id + ";");
+        ResultSet rs = databaseService().getQuery(String.format(
+                "SELECT invoice_number "
+                + "FROM orion`.`invoice WHERE invoice_number=%s;", id));
         try {
             if (rs.next()) {
                 return rs.getInt("invoice_number");
@@ -73,9 +104,14 @@ public class FindInvoice implements IFindService {
         return 0;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Invoice getInvoice(int id) {
-        ResultSet rs = db.getQuery("SELECT * " + "FROM orion.invoice "
-                + "WHERE customer_number=" + id + ";");
+        ResultSet rs = databaseService().getQuery(String.format(
+                "SELECT * FROM orion.invoice WHERE customer_number=%s;", id));
         try {
             if (rs.last()) {
                 return new Invoice(rs.getInt("invoice_number"),

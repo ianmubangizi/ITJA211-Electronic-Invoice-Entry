@@ -5,10 +5,19 @@ package com.electronic_invoice.Utils;
  */
 public interface IFindService {
 
-    public boolean byId(int id);
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public boolean findId(int id);
 
+    /**
+     *
+     * @return
+     */
     public int lastCreatedId();
 
-    public int withQuery(String sql);
+    //public <?> withQuery(String sql);
 
 }

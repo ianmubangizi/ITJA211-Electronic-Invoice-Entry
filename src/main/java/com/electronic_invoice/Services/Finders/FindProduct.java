@@ -1,7 +1,7 @@
 package com.electronic_invoice.Services.Finders;
 
 import com.electronic_invoice.Entities.Product;
-import com.electronic_invoice.Services.DatabaseService;
+import static com.electronic_invoice.Services.DatabaseService.databaseService;
 import com.electronic_invoice.Utils.IFindService;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,33 +12,74 @@ import java.util.ArrayList;
  */
 public class FindProduct implements IFindService {
 
-    DatabaseService db = new DatabaseService();
+    private static FindProduct service = null;
 
+    private FindProduct() {
+        service = this;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static FindProduct findProduct() {
+        if (service == null) {
+            new FindProduct();
+        }
+        return service;
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
-    public boolean byId(int id) {
+    public boolean findId(int id) {
+        ResultSet rs = databaseService().getQuery(String.format(
+                "SELECT * FROM orion.product WHERE product_code='%s';", id));
+        try {
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+
+        }
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int lastCreatedId() {
         return 0;
     }
 
-    @Override
-    public int withQuery(String sql) {
-        return 0;
+    /**
+     *
+     * @param sql
+     * @return
+     */
+    public Product withQuery(String sql) {
+        return new Product();
     }
 
     /**
-     * 
+     *
      * @param id
      * @return Product
      */
-    public Product withProductId(String id) {
-        ResultSet rs = db.getQuery("SELECT * " + "FROM orion.product " + "WHERE product_code='" + id + "';");
+    public Product withId(String id) {
+        ResultSet rs = databaseService().getQuery(String.format(
+                "SELECT * FROM orion.product WHERE product_code='%s';", id));
         try {
             if (rs.next()) {
-                return new Product(rs.getString("product_code"), rs.getString("description"), rs.getInt("price"));
+                return new Product(
+                        rs.getString("product_code"),
+                        rs.getString("description"),
+                        rs.getInt("price"));
             }
         } catch (SQLException e) {
 
@@ -46,16 +87,24 @@ public class FindProduct implements IFindService {
         return new Product();
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Product> allProducts() {
-        ResultSet rs = db.getQuery("SELECT * FROM orion.product;");
+        ResultSet rs = databaseService().getQuery("SELECT * FROM orion.product;");
         try {
-            ArrayList<Product> producList = new ArrayList<>();
+            ArrayList<Product> productList = new ArrayList<>();
             while (rs.next()) {
-                producList.add(
-                        new Product(rs.getString("product_code"), rs.getString("description"), rs.getInt("price")));
+                productList.add(
+                        new Product(
+                                rs.getString("product_code"),
+                                rs.getString("description"),
+                                rs.getInt("price"))
+                );
             }
-            if (!producList.isEmpty()) {
-                return producList;
+            if (!productList.isEmpty()) {
+                return productList;
             }
         } catch (SQLException e) {
         }

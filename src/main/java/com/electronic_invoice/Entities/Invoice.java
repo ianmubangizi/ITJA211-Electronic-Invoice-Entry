@@ -11,6 +11,9 @@ public class Invoice {
     private int customer_number;
     private double payment;
 
+    /**
+     *
+     */
     public Invoice() {
     }
 
@@ -29,26 +32,50 @@ public class Invoice {
         this.payment = payment;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getInvoice_number() {
         return invoice_number;
     }
 
+    /**
+     *
+     * @param invoice_number
+     */
     public void setInvoice_number(int invoice_number) {
         this.invoice_number = invoice_number;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCustomer_number() {
         return customer_number;
     }
 
+    /**
+     *
+     * @param customer_number
+     */
     public void setCustomer_number(int customer_number) {
         this.customer_number = customer_number;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPayment() {
         return payment;
     }
 
+    /**
+     *
+     * @param payment
+     */
     public void setPayment(double payment) {
         this.payment = payment;
     }

@@ -1,28 +1,50 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.electronic_invoice.Services.Adders;
 
 import com.electronic_invoice.Entities.Account;
-import com.electronic_invoice.Services.DatabaseService;
+import static com.electronic_invoice.Services.DatabaseService.databaseService;
 
 /**
  *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public final class AddAccount {
-    
+
+    private static AddAccount service = null;
+
+    private AddAccount() {
+        service = this;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static AddAccount accountService() {
+        if (service == null)
+            new AddAccount();
+        return service;
+    }
+
+    /**
+     *
+     * @param account
+     */
     public void create(Account account) {
-        new DatabaseService()
-                .updateQuery(
-                        "INSERT INTO `orion`.`account` "
-                        + "(`name`,`customer_number`,`balance`) "
-                        + "VALUES (\"" + account.getName()
-                        + "\"," + account.getCustomer_number()
-                        + "," + account.getBalance()
-                        + ");"
-                );
+        databaseService().updateQuery(String.format(
+                "INSERT INTO `orion`.`account` (`name`,`customer_number`,`balance`) VALUES ('%s',%d,%f);",
+                account.getName(), account.getCustomer_number(), account.getBalance()));
+    }
+
+    /**
+     *
+     * @param columName
+     * @param value
+     * @param key
+     */
+    public void update(String columName, String value, int key) {
+        databaseService().updateQuery(String.format(
+                "UPDATE `orion`.`account` SET `account`.`%s`=%s WHERE `customer_number`=%s",
+                columName, value, key)
+        );
     }
 }
