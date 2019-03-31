@@ -19,10 +19,6 @@ public class Transaction extends JFrame {
     private static final long serialVersionUID = 5764815429841719164L;
     private static Transaction frame = null;
     private final ClientAction action = new ClientAction();
-
-    /**
-     *
-     */
     public String frame_title = "Electronic Invoice Entry – Transaction";
 
     //
@@ -31,47 +27,16 @@ public class Transaction extends JFrame {
     private final JLabel jl_balance = new JLabel("Balance");
 
     //
-
-    /**
-     *
-     */
     public final JTextField jtf_name = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_customernumber = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_balance = new JTextField();
 
     //
-
-    /**
-     *
-     */
     public final JButton jbtn_check = new JButton("Check Balance");
-
-    /**
-     *
-     */
     public final JButton jbtn_deposit = new JButton("Deposit");
-
-    /**
-     *
-     */
     public final JButton jbtn_calculate = new JButton("Calculate Payment & Deposit");
-
-    /**
-     *
-     */
     public final JButton jbtn_transaction = new JButton("Transaction");
 
-    /**
-     *
-     */
     public Transaction() {
         frame = this;
         initFrame();
@@ -85,9 +50,7 @@ public class Transaction extends JFrame {
         setLayout(new GridLayout(5, 2));
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         getContentPane().setBackground(Color.GREEN);
-        getRootPane().setBorder(
-                BorderFactory.createMatteBorder(2, 2, 1, 2, Color.GREEN)
-        );
+        getRootPane().setBorder(BorderFactory.createMatteBorder(2, 2, 1, 2, Color.GREEN));
 
         add(jl_name).setName("jl_name");
         add(jtf_name).setName("jtf_name");
@@ -99,7 +62,7 @@ public class Transaction extends JFrame {
         add(jbtn_deposit).setName("jbtn_deposit");
         add(jbtn_calculate).setName("jbtn_calculate");
         add(jbtn_transaction).setName("jbtn_transaction");
-        
+
         //
         jbtn_check.addActionListener((e) -> {
             action.checkAccount(this, InvoiceEntry.getFrame());
@@ -120,6 +83,6 @@ public class Transaction extends JFrame {
      * @return
      */
     public static Transaction getFrame() {
-		return frame;
-	}
+        return frame;
+    }
 }

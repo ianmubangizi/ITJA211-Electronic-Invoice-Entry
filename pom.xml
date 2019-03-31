@@ -9,8 +9,8 @@
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.6</version>
+            <artifactId>mysql-connector-java</artifactId> <!--[Todo]: Update to 8.0.7-dmr add SSL Support -->
+            <version>5.1.6</version> <!-- @vulnerable -->
         </dependency>
     </dependencies>
     <properties>

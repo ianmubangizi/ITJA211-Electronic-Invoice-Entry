@@ -20,11 +20,11 @@ public final class AddLineItem {
      * @return
      */
     public static AddLineItem lineItemService() {
-        if(service == null)
+        if (service == null)
             new AddLineItem();
         return service;
     }
-    
+
     /**
      *
      * @param item

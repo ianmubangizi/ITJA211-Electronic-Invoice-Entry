@@ -45,134 +45,34 @@ public class InvoiceEntry extends JFrame {
     private final JLabel jl_allproducts = new JLabel("All Products:");
 
     //
-
-    /**
-     *
-     */
     public final JTextField jtf_name = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_address = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_city = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_description = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_province = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_zip = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_productcode = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_invoicenumber = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_customernumber = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_quantity = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_payment = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_price = new JTextField();
-
-    /**
-     *
-     */
     public final JTextField jtf_deposit = new JTextField();
 
     //
-
-    /**
-     *
-     */
     public final JButton jbtn_addcustomer = new JButton("Add Customer");
-
-    /**
-     *
-     */
     public final JButton jbtn_findproduct = new JButton("Find Product");
-
-    /**
-     *
-     */
     public final JButton jbtn_listproduct = new JButton("List Product");
-
-    /**
-     *
-     */
     public final JButton jbtn_addinvoice = new JButton("Add Invoice");
-
-    /**
-     *
-     */
     public final JButton jbtn_showinvoice = new JButton("Show Invoice");
-
-    /**
-     *
-     */
     public final JButton jbtn_exit = new JButton("Exit");
-
-    /**
-     *
-     */
     public final JButton jbtn_writeinvoice = new JButton("Write Invoice");
-
-    /**
-     *
-     */
     public final JButton jbtn_next = new JButton("Next");
 
     //
-
-    /**
-     *
-     */
     public final JTextArea jtxta_products = new JTextArea("List of Products e.g:\n116-456 x 2");
-
-    /**
-     *
-     */
     public final JScrollPane jslp_productbought = new JScrollPane(jtxta_products);
-
-    /**
-     *
-     */
     public final JComboBox<String> jcbx_allproducts = new JComboBox<>();
-
-    /**
-     *
-     */
     public InvoiceEntry() {
         frame = this;
         initFrame();
@@ -267,9 +167,7 @@ public class InvoiceEntry extends JFrame {
             action.printInvoice(this);
         });
         jcbx_allproducts.addActionListener((e) -> {
-            Product p = findProduct().allProducts().get(
-                    jcbx_allproducts.getSelectedIndex()
-            );
+            Product p = findProduct().allProducts().get(jcbx_allproducts.getSelectedIndex());
             jtf_productcode.setText(p.getProduct_code());
         });
     }

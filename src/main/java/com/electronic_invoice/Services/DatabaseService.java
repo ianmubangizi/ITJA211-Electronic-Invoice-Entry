@@ -20,8 +20,8 @@ public final class DatabaseService {
      * should be downloaded from maven repo using pom.xml
      */
     private final String dbuser = "root";
-    private final String dbpassword = "Kueyf2J5Z4Vb"; // use [ ""; ] for no password 
-    private final String jdbc_driver = "com.mysql.cj.jdbc.Driver"; // use [ "com.mysql.jdbc.Driver"; ] for older mysql-connector
+    private final String dbpassword = "Kueyf2J5Z4Vb"; // use [ ""; ] for no password
+    private final String jdbc_driver = "com.mysql.cj.jdbc.Driver"; // use [ "com.mysql.jdbc.Driver"; ] for older mysql-connector-java
     private final String url = "jdbc:mysql://localhost:3306/orion";
     private static DatabaseService service = null;
 

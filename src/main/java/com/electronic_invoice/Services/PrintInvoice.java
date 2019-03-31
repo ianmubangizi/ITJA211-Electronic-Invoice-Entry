@@ -8,7 +8,7 @@ import java.io.PrintWriter;
  * PrintInvoice
  */
 public final class PrintInvoice {
-    
+
     private static PrintInvoice service = null;
 
     private PrintInvoice() {
@@ -20,11 +20,11 @@ public final class PrintInvoice {
      * @return
      */
     public static PrintInvoice printService() {
-        if(service == null)
+        if (service == null)
             new PrintInvoice();
         return service;
     }
-    
+
     /**
      *
      * @param doc

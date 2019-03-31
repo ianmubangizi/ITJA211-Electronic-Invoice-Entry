@@ -21,11 +21,11 @@ public class FindAccount {
      * @return
      */
     public static FindAccount findAccount() {
-        if(service == null)
+        if (service == null)
             new FindAccount();
         return service;
     }
-    
+
     /**
      *
      * @param id
@@ -34,10 +34,7 @@ public class FindAccount {
     public Account getById(int id) {
         if (findCustomer().findId(id)) {
             Customer customer = findCustomer().getCustomer(id);
-            return new Account(
-                    customer.getName(),
-                    customer.getCustomer_number(),
-                    customer.getDeposit());
+            return new Account(customer.getName(), customer.getCustomer_number(), customer.getDeposit());
         }
         return new Account();
     }

@@ -24,10 +24,10 @@ Install chocolatey
 @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 ```
 
-Install need tools
+Install needed tools
 
 ```cmd
-C:\WINDOWS\system32>choco install -y jre8 jdk8 netbeans mysql Bitnami-XAMPP datagrip 
+C:\WINDOWS\system32>choco install -y jre8 jdk8 netbeans Bitnami-XAMPP datagrip
 ```
 
 Change fields to your Local Settings in DatabaseService.java
@@ -45,7 +45,10 @@ Change fields to your Local Settings in DatabaseService.java
     }
 ```
 
+I made use of mysql-connector-java-5.1.6 found in ./bin
+note that jar is not in commits but would be in the release version.
 
+Read the ./bin/import.jars for the required dependencies
 
 ## Built With
 
@@ -53,11 +56,11 @@ Change fields to your Local Settings in DatabaseService.java
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [MySQL](https://www.mysql.com/) - Persistence Layer
 * [mysql-connector](https://dev.mysql.com/downloads/connector/j/8.0.html) - JDBC Client Driver to make use of MySQL database
-* [DataGrip](https://www.jetbrains.com/datagrip/) - Made writing SQL fun U+1F607 for once U+1F923
+* [DataGrip](https://www.jetbrains.com/datagrip/) - Made writing SQL fun :grin: for once :relieved:
 * [NetBeans IDE 8.0.2](https://netbeans.org/downloads/8.0.2/) - Main IDE I used , almost has it all which is a problem
-                         U+1F611, given that I only have an Intel i5 & 8GB RAM
-* [Visual Studio Code](https://code.visualstudio.com/) - When I just couldn't wait for NetBeans to load modules U+1F62A
+                         :disappointed_relieved:, given that I only have an Intel i5 & 8GB RAM
+* [Visual Studio Code](https://code.visualstudio.com/) - When I just couldn't wait for NetBeans to load modules :expressionless:
 
 ## Author
 
-* **Ian Mubangizi** - ** - [GitHub](https://github.com/ianmubangizi) [Website](https://www.ianmubangizi.com) [Email](io@ianmubangizi.com)
+* **Ian Mubangizi** - ** - [GitHub](https://github.com/ianmubangizi) | [Website](https://www.ianmubangizi.com) [Email]:io@ianmubangizi.com

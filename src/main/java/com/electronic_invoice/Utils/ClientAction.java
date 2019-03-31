@@ -4,6 +4,7 @@ import com.electronic_invoice.Entities.Account;
 import com.electronic_invoice.Entities.Customer;
 import com.electronic_invoice.Entities.Invoice;
 import com.electronic_invoice.Entities.Product;
+import com.electronic_invoice.Entities.Queue;
 import com.electronic_invoice.Frames.InvoiceEntry;
 import com.electronic_invoice.Frames.Transaction;
 import static com.electronic_invoice.Services.Adders.AddAccount.accountService;
@@ -15,7 +16,7 @@ import static com.electronic_invoice.Services.Finders.FindCustomer.findCustomer;
 import static com.electronic_invoice.Services.Finders.FindInvoice.findInvoice;
 import static com.electronic_invoice.Services.Finders.FindProduct.findProduct;
 import static com.electronic_invoice.Services.PrintInvoice.printService;
-import static com.electronic_invoice.Utils.CustomerAreadyExistsException.caee;
+import static com.electronic_invoice.Utils.CustomerAlreadyExistsException.caee;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
@@ -25,22 +26,22 @@ import javax.swing.JOptionPane;
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class ClientAction {
-
+    
     Helpers makeUseOf = new Helpers();
 
     //
-
     /**
      *
      * @param ief
      */
     public void addCustomer(InvoiceEntry ief) {
+        int id = Integer.parseInt(
+                ief.jtf_customernumber.getText().isEmpty()
+                ? "-1" : ief.jtf_customernumber.getText()
+        );
         try {
-            if (!findCustomer().findId(Integer.parseInt(ief.jtf_customernumber.getText()))) {
-                customerService().create(new Customer(
-                        Integer.parseInt(
-                                (ief.jtf_customernumber.getText().isEmpty())
-                                ? "1" : ief.jtf_customernumber.getText()),
+            if (!findCustomer().findId(id)) {
+                customerService().create(new Customer(id,
                         ief.jtf_name.getText(), ief.jtf_address.getText(),
                         ief.jtf_city.getText(),
                         ief.jtf_province.getText(),
@@ -50,13 +51,12 @@ public class ClientAction {
                 return;
             }
             throw caee();
-        } catch (NumberFormatException | CustomerAreadyExistsException e) {
+        } catch (NumberFormatException | CustomerAlreadyExistsException e) {
             makeUseOf.displayAnyErrors(e);
         }
     }
 
     //
-
     /**
      *
      * @param ief
@@ -68,8 +68,7 @@ public class ClientAction {
                             (ief.jtf_invoicenumber.getText().isEmpty())
                             ? "1" : ief.jtf_invoicenumber.getText()),
                     Integer.parseInt(ief.jtf_customernumber.getText()),
-                    Double.valueOf(ief.jtf_payment.getText().isEmpty()
-                            ? "0.0" : ief.jtf_payment.getText())));
+                    Double.valueOf("0.0")));
         } catch (NumberFormatException e) {
             makeUseOf.displayAnyErrors(e);
             return;
@@ -78,7 +77,6 @@ public class ClientAction {
     }
 
     //
-
     /**
      *
      * @param ief
@@ -108,7 +106,6 @@ public class ClientAction {
     }
 
     //
-
     /**
      *
      * @param ief
@@ -145,7 +142,6 @@ public class ClientAction {
     }
 
     //
-
     /**
      *
      * @param ief
@@ -157,7 +153,6 @@ public class ClientAction {
     }
 
     //
-
     /**
      *
      * @param tsf
@@ -169,7 +164,7 @@ public class ClientAction {
                     Integer.parseInt(tsf.jtf_customernumber.getText().isEmpty()
                             ? ief.jtf_customernumber.getText()
                             : tsf.jtf_customernumber.getText()));
-
+            
             tsf.jtf_name.setText(account.getName());
             tsf.jtf_customernumber.setText(String.valueOf(account.getCustomer_number()));
             tsf.jtf_balance.setText(String.valueOf(account.getBalance()));
@@ -179,7 +174,6 @@ public class ClientAction {
     }
 
     //
-
     /**
      *
      * @param tsf
@@ -198,17 +192,17 @@ public class ClientAction {
     }
 
     //
-
     /**
      *
      */
     public void calculateAndDeposit() {
         try {
             int count = Integer.parseInt(JOptionPane.showInputDialog(null, "Number of Products: "));
-            makeUseOf.receviceProducts(count);
+            makeUseOf.receiveProducts(count);
+            
             Transaction.getFrame().jtf_balance.setText(String.valueOf(makeUseOf.deposit));
             InvoiceEntry.getFrame().jtf_deposit.setText(String.valueOf(makeUseOf.deposit));
-            InvoiceEntry.getFrame().jtf_payment.setText(String.valueOf(makeUseOf.payment));
+            InvoiceEntry.getFrame().jtf_payment.setText(String.valueOf(makeUseOf.total));
         } catch (HeadlessException | NumberFormatException e) {
             makeUseOf.displayAnyErrors(e);
         }
@@ -219,7 +213,22 @@ public class ClientAction {
      */
     public void transaction() {
         makeUseOf.confirmTransaction();
+        makeUseOf.transactions.forEach((Queue t) -> {
+            accountService().update("balance",
+                    String.valueOf(t.getDeposit()),
+                    findCustomer().withInvoiceId(Integer.valueOf(t.getInvoiceId()))
+            );
+            customerService().update("deposit",
+                    String.valueOf(t.getDeposit()),
+                    findCustomer().withInvoiceId(
+                            Integer.valueOf(t.getInvoiceId())
+                    )
+            );
+            invoiceService().update("payment",
+                    String.valueOf(t.getPayment()),
+                    Integer.valueOf(t.getInvoiceId())
+            );
+        });
         makeUseOf.items.forEach(i -> lineItemService().create(i));
-
     }
 }

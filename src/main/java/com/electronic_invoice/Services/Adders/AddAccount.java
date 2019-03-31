@@ -30,21 +30,19 @@ public final class AddAccount {
      * @param account
      */
     public void create(Account account) {
-        databaseService().updateQuery(String.format(
-                "INSERT INTO `orion`.`account` (`name`,`customer_number`,`balance`) VALUES ('%s',%d,%f);",
-                account.getName(), account.getCustomer_number(), account.getBalance()));
+        databaseService().updateQuery(
+                String.format("INSERT INTO `orion`.`account` (`name`,`customer_number`,`balance`) VALUES ('%s',%d,%f);",
+                        account.getName(), account.getCustomer_number(), account.getBalance()));
     }
 
     /**
      *
-     * @param columName
+     * @param columnName
      * @param value
      * @param key
      */
-    public void update(String columName, String value, int key) {
+    public void update(String columnName, String value, int key) {
         databaseService().updateQuery(String.format(
-                "UPDATE `orion`.`account` SET `account`.`%s`=%s WHERE `customer_number`=%s",
-                columName, value, key)
-        );
+                "UPDATE `orion`.`account` SET `account`.`%s`=%s WHERE `account`.`customer_number`=%d;", columnName, value, key));
     }
 }

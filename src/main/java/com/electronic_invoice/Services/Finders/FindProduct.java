@@ -36,8 +36,8 @@ public class FindProduct implements IFindService {
      */
     @Override
     public boolean findId(int id) {
-        ResultSet rs = databaseService().getQuery(String.format(
-                "SELECT * FROM orion.product WHERE product_code='%s';", id));
+        ResultSet rs = databaseService()
+                .getQuery(String.format("SELECT * FROM orion.product WHERE product_code='%s';", id));
         try {
             if (rs.next()) {
                 return true;
@@ -72,14 +72,11 @@ public class FindProduct implements IFindService {
      * @return Product
      */
     public Product withId(String id) {
-        ResultSet rs = databaseService().getQuery(String.format(
-                "SELECT * FROM orion.product WHERE product_code='%s';", id));
+        ResultSet rs = databaseService()
+                .getQuery(String.format("SELECT * FROM orion.product WHERE product_code='%s';", id));
         try {
             if (rs.next()) {
-                return new Product(
-                        rs.getString("product_code"),
-                        rs.getString("description"),
-                        rs.getInt("price"));
+                return new Product(rs.getString("product_code"), rs.getString("description"), rs.getInt("price"));
             }
         } catch (SQLException e) {
 
@@ -97,11 +94,7 @@ public class FindProduct implements IFindService {
             ArrayList<Product> productList = new ArrayList<>();
             while (rs.next()) {
                 productList.add(
-                        new Product(
-                                rs.getString("product_code"),
-                                rs.getString("description"),
-                                rs.getInt("price"))
-                );
+                        new Product(rs.getString("product_code"), rs.getString("description"), rs.getInt("price")));
             }
             if (!productList.isEmpty()) {
                 return productList;

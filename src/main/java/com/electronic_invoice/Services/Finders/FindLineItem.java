@@ -26,15 +26,15 @@ public class FindLineItem {
             new FindLineItem();
         return service;
     }
-    
+
     /**
      *
      * @param id
      * @return
      */
     public ArrayList<LineItem> withInvoiceId(int id) {
-        ResultSet rs = databaseService().getQuery(String.format(
-                "SELECT * FROM orion.lineitem WHERE invoice_number=%s;", id));
+        ResultSet rs = databaseService()
+                .getQuery(String.format("SELECT * FROM orion.lineitem WHERE invoice_number=%s;", id));
         try {
             ArrayList<LineItem> productItemList = new ArrayList<>();
             while (rs.next()) {

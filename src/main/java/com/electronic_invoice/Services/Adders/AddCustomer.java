@@ -35,22 +35,19 @@ public final class AddCustomer {
         databaseService().updateQuery(String.format(
                 "INSERT INTO `orion`.`customer` (`Name`, `Address`, `City`, `Province`, `Zip`, `Deposit`) VALUES ('%s','%s','%s','%s','%s',%f)",
                 customer.getName(), customer.getAddress(), customer.getCity(), customer.getProvince(),
-                customer.getZip(), customer.getDeposit())
-        );
+                customer.getZip(), customer.getDeposit()));
     }
 
-    //[Todo] Use Customer and String[] 
+    // [Todo] Use Customer and String[]
 
     /**
      *
-     * @param columName
+     * @param columnName
      * @param value
      * @param key
      */
-    public void update(String columName, String value, int key) {
+    public void update(String columnName, String value, int key) {
         databaseService().updateQuery(String.format(
-                "UPDATE `orion`.`customer` SET `customer`.`%s`=%s WHERE `customer_number`=%s",
-                columName, value, key)
-        );
+                "UPDATE `orion`.`customer` SET `customer`.`%s`=%s WHERE `customer_number`=%s", columnName, value, key));
     }
 }

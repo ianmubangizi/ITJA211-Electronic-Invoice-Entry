@@ -25,11 +25,11 @@ public final class AddInvoice implements ICustomerNotFound {
      * @return
      */
     public static AddInvoice invoiceService() {
-        if(service == null)
+        if (service == null)
             new AddInvoice();
         return service;
     }
-    
+
     /**
      *
      * @param invoice
@@ -38,8 +38,19 @@ public final class AddInvoice implements ICustomerNotFound {
         databaseService().updateQuery(
                 String.format("INSERT INTO `orion`.`invoice` (`Customer_Number`,`Payment`) VALUES (%s,%f);",
                         (findCustomer().findId(invoice.getCustomer_number()) ? invoice.getCustomer_number()
-                        : getCreatedId(invoice.getCustomer_number())),
+                                : getCreatedId(invoice.getCustomer_number())),
                         (invoice.getPayment())));
+    }
+    
+    /**
+     *
+     * @param columnName
+     * @param value
+     * @param key
+     */
+    public void update(String columnName, String value, int key) {
+        databaseService().updateQuery(String.format(
+                "UPDATE `orion`.`invoice` SET `invoice`.`%s`=%s WHERE `invoice_number`=%s", columnName, value, key));
     }
 
     /**
@@ -51,14 +62,14 @@ public final class AddInvoice implements ICustomerNotFound {
     @Deprecated
     public void createNewCustomer(ECallTypes t) {
         switch (t) {
-            case NEED_VAILD_CUSTOMERID:
-                new Helpers().addCustomer(ECallTypes.NEED_VAILD_CUSTOMERID);
-                break;
-            case ADD_INVOICE_CUSTOMER:
-                new Helpers().addCustomer(ECallTypes.ADD_INVOICE_CUSTOMER);
-                break;
-            default:
-                break;
+        case NEED_VAILD_CUSTOMERID:
+            new Helpers().addCustomer(ECallTypes.NEED_VAILD_CUSTOMERID);
+            break;
+        case ADD_INVOICE_CUSTOMER:
+            new Helpers().addCustomer(ECallTypes.ADD_INVOICE_CUSTOMER);
+            break;
+        default:
+            break;
         }
     }
 
@@ -68,6 +79,7 @@ public final class AddInvoice implements ICustomerNotFound {
      * @return
      */
     @Override
+    @Deprecated
     public int getCreatedId(int id) {
         if ((Integer.toString(id).matches("(^(?!0*(\\.0+)?$)(\\d{1,200})$)"))) {
             createNewCustomer(ECallTypes.ADD_INVOICE_CUSTOMER);
