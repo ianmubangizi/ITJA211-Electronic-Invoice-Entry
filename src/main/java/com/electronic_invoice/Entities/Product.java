@@ -1,7 +1,6 @@
 package com.electronic_invoice.Entities;
 
 /**
- *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class Product {
@@ -11,7 +10,6 @@ public class Product {
     private double price;
 
     /**
-     *
      * @param product_code
      * @param description
      * @param price
@@ -29,7 +27,6 @@ public class Product {
     }
 
     /**
-     *
      * @return
      */
     public String getProduct_code() {
@@ -37,7 +34,6 @@ public class Product {
     }
 
     /**
-     *
      * @param product_code
      */
     public void setProduct_code(String product_code) {
@@ -45,7 +41,6 @@ public class Product {
     }
 
     /**
-     *
      * @return
      */
     public String getDescription() {
@@ -53,7 +48,6 @@ public class Product {
     }
 
     /**
-     *
      * @param description
      */
     public void setDescription(String description) {
@@ -61,7 +55,6 @@ public class Product {
     }
 
     /**
-     *
      * @return
      */
     public double getPrice() {
@@ -69,7 +62,6 @@ public class Product {
     }
 
     /**
-     *
      * @param price
      */
     public void setPrice(double price) {
@@ -78,7 +70,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return description ;
+        return description;
     }
 
 }

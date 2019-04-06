@@ -19,7 +19,7 @@ public class Invoice {
 
     /**
      * Invoice Constructor
-     * 
+     *
      * @param invoice_number  The Invoice number <strong>Note:</strong> This must be
      *                        unique per instance
      * @param customer_number Similar to the
@@ -33,7 +33,6 @@ public class Invoice {
     }
 
     /**
-     *
      * @return
      */
     public int getInvoice_number() {
@@ -41,7 +40,6 @@ public class Invoice {
     }
 
     /**
-     *
      * @param invoice_number
      */
     public void setInvoice_number(int invoice_number) {
@@ -49,7 +47,6 @@ public class Invoice {
     }
 
     /**
-     *
      * @return
      */
     public int getCustomer_number() {
@@ -57,7 +54,6 @@ public class Invoice {
     }
 
     /**
-     *
      * @param customer_number
      */
     public void setCustomer_number(int customer_number) {
@@ -65,7 +61,6 @@ public class Invoice {
     }
 
     /**
-     *
      * @return
      */
     public double getPayment() {
@@ -73,7 +68,6 @@ public class Invoice {
     }
 
     /**
-     *
      * @param payment
      */
     public void setPayment(double payment) {

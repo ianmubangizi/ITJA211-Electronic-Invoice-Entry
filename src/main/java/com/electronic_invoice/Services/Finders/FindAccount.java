@@ -2,10 +2,10 @@ package com.electronic_invoice.Services.Finders;
 
 import com.electronic_invoice.Entities.Account;
 import com.electronic_invoice.Entities.Customer;
+
 import static com.electronic_invoice.Services.Finders.FindCustomer.findCustomer;
 
 /**
- *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class FindAccount {
@@ -17,7 +17,6 @@ public class FindAccount {
     }
 
     /**
-     *
      * @return
      */
     public static FindAccount findAccount() {
@@ -27,7 +26,6 @@ public class FindAccount {
     }
 
     /**
-     *
      * @param id
      * @return
      */

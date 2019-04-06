@@ -1,11 +1,12 @@
 package com.electronic_invoice.Services.Adders;
 
 import com.electronic_invoice.Entities.Invoice;
-import static com.electronic_invoice.Services.DatabaseService.databaseService;
-import static com.electronic_invoice.Services.Finders.FindCustomer.findCustomer;
 import com.electronic_invoice.Utils.ECallTypes;
 import com.electronic_invoice.Utils.Helpers;
 import com.electronic_invoice.Utils.ICustomerNotFound;
+
+import static com.electronic_invoice.Services.DatabaseService.databaseService;
+import static com.electronic_invoice.Services.Finders.FindCustomer.findCustomer;
 
 /**
  * AddInvoice
@@ -21,7 +22,6 @@ public final class AddInvoice implements ICustomerNotFound {
     }
 
     /**
-     *
      * @return
      */
     public static AddInvoice invoiceService() {
@@ -31,7 +31,6 @@ public final class AddInvoice implements ICustomerNotFound {
     }
 
     /**
-     *
      * @param invoice
      */
     public void create(Invoice invoice) {
@@ -41,9 +40,8 @@ public final class AddInvoice implements ICustomerNotFound {
                                 : getCreatedId(invoice.getCustomer_number())),
                         (invoice.getPayment())));
     }
-    
+
     /**
-     *
      * @param columnName
      * @param value
      * @param key
@@ -54,7 +52,6 @@ public final class AddInvoice implements ICustomerNotFound {
     }
 
     /**
-     *
      * @param t
      * @deprecated
      */
@@ -62,19 +59,18 @@ public final class AddInvoice implements ICustomerNotFound {
     @Deprecated
     public void createNewCustomer(ECallTypes t) {
         switch (t) {
-        case NEED_VAILD_CUSTOMERID:
-            new Helpers().addCustomer(ECallTypes.NEED_VAILD_CUSTOMERID);
-            break;
-        case ADD_INVOICE_CUSTOMER:
-            new Helpers().addCustomer(ECallTypes.ADD_INVOICE_CUSTOMER);
-            break;
-        default:
-            break;
+            case NEED_VAILD_CUSTOMERID:
+                new Helpers().addCustomer(ECallTypes.NEED_VAILD_CUSTOMERID);
+                break;
+            case ADD_INVOICE_CUSTOMER:
+                new Helpers().addCustomer(ECallTypes.ADD_INVOICE_CUSTOMER);
+                break;
+            default:
+                break;
         }
     }
 
     /**
-     *
      * @param id
      * @return
      */

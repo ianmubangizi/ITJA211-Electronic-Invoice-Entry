@@ -1,12 +1,13 @@
 package com.electronic_invoice.Utils;
 
-import com.electronic_invoice.Entities.Account;
-import com.electronic_invoice.Entities.Customer;
-import com.electronic_invoice.Entities.Invoice;
-import com.electronic_invoice.Entities.Product;
 import com.electronic_invoice.Entities.Queue;
+import com.electronic_invoice.Entities.*;
 import com.electronic_invoice.Frames.InvoiceEntry;
 import com.electronic_invoice.Frames.Transaction;
+
+import javax.swing.*;
+import java.awt.*;
+
 import static com.electronic_invoice.Services.Adders.AddAccount.accountService;
 import static com.electronic_invoice.Services.Adders.AddCustomer.customerService;
 import static com.electronic_invoice.Services.Adders.AddInvoice.invoiceService;
@@ -17,8 +18,6 @@ import static com.electronic_invoice.Services.Finders.FindInvoice.findInvoice;
 import static com.electronic_invoice.Services.Finders.FindProduct.findProduct;
 import static com.electronic_invoice.Services.PrintInvoice.printService;
 import static com.electronic_invoice.Utils.CustomerAlreadyExistsException.caee;
-import java.awt.HeadlessException;
-import javax.swing.JOptionPane;
 
 /**
  * Action
@@ -26,18 +25,18 @@ import javax.swing.JOptionPane;
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class ClientAction {
-    
-    Helpers makeUseOf = new Helpers();
+
+    private Helpers makeUseOf = new Helpers();
 
     //
+
     /**
-     *
      * @param ief
      */
     public void addCustomer(InvoiceEntry ief) {
         int id = Integer.parseInt(
                 ief.jtf_customernumber.getText().isEmpty()
-                ? "-1" : ief.jtf_customernumber.getText()
+                        ? "-1" : ief.jtf_customernumber.getText()
         );
         try {
             if (!findCustomer().findId(id)) {
@@ -57,8 +56,8 @@ public class ClientAction {
     }
 
     //
+
     /**
-     *
      * @param ief
      */
     public void createInvoice(InvoiceEntry ief) {
@@ -66,7 +65,7 @@ public class ClientAction {
             invoiceService().create(new Invoice(
                     Integer.parseInt(
                             (ief.jtf_invoicenumber.getText().isEmpty())
-                            ? "1" : ief.jtf_invoicenumber.getText()),
+                                    ? "1" : ief.jtf_invoicenumber.getText()),
                     Integer.parseInt(ief.jtf_customernumber.getText()),
                     Double.valueOf("0.0")));
         } catch (NumberFormatException e) {
@@ -77,8 +76,8 @@ public class ClientAction {
     }
 
     //
+
     /**
-     *
      * @param ief
      */
     public void showInvoice(InvoiceEntry ief) {
@@ -106,8 +105,8 @@ public class ClientAction {
     }
 
     //
+
     /**
-     *
      * @param ief
      */
     public void printInvoice(InvoiceEntry ief) {
@@ -115,24 +114,24 @@ public class ClientAction {
             printService().print(
                     String.format(
                             "**********************************************************\n"
-                            + "Name: %s\n"
-                            + "Address: %s\n"
-                            + "City: %s\n"
-                            + "Province: %s\n"
-                            + "Zip %s\n"
-                            + "Deposit: %s\n"
-                            + "Product Bought: %s"
-                            + "Customer Number: %s\n"
-                            + "Invoice Number: %s\n"
-                            + "**********************************************************",
+                                    + "Name: %s\n"
+                                    + "Address: %s\n"
+                                    + "City: %s\n"
+                                    + "Province: %s\n"
+                                    + "Zip %s\n"
+                                    + "Deposit: %s\n"
+                                    + "Product Bought: %s"
+                                    + "Customer Number: %s\n"
+                                    + "Invoice Number: %s\n"
+                                    + "**********************************************************",
                             ief.jtf_name.getText(),
                             ief.jtf_address.getText(),
                             ief.jtf_city.getText(),
                             ief.jtf_province.getText(),
                             ief.jtf_zip.getText(),
                             ief.jtf_deposit.getText(), makeUseOf.lineItemString(
-                            Integer.parseInt(ief.jtf_invoicenumber.getText()),
-                            ECallTypes.WITH_TABS),
+                                    Integer.parseInt(ief.jtf_invoicenumber.getText()),
+                                    ECallTypes.WITH_TABS),
                             ief.jtf_customernumber.getText(),
                             ief.jtf_invoicenumber.getText()),
                     ief.jtf_customernumber.getText());
@@ -142,8 +141,8 @@ public class ClientAction {
     }
 
     //
+
     /**
-     *
      * @param ief
      */
     public void findProductAction(InvoiceEntry ief) {
@@ -153,8 +152,8 @@ public class ClientAction {
     }
 
     //
+
     /**
-     *
      * @param tsf
      * @param ief
      */
@@ -164,7 +163,7 @@ public class ClientAction {
                     Integer.parseInt(tsf.jtf_customernumber.getText().isEmpty()
                             ? ief.jtf_customernumber.getText()
                             : tsf.jtf_customernumber.getText()));
-            
+
             tsf.jtf_name.setText(account.getName());
             tsf.jtf_customernumber.setText(String.valueOf(account.getCustomer_number()));
             tsf.jtf_balance.setText(String.valueOf(account.getBalance()));
@@ -174,8 +173,8 @@ public class ClientAction {
     }
 
     //
+
     /**
-     *
      * @param tsf
      */
     public void addAccount(Transaction tsf) {
@@ -183,8 +182,8 @@ public class ClientAction {
             accountService().create(new Account(tsf.jtf_name.getText(),
                     (findCustomer().findId(
                             Integer.parseInt(tsf.jtf_customernumber.getText()))
-                    ? Integer.parseInt(tsf.jtf_customernumber.getText())
-                    : null),
+                            ? Integer.parseInt(tsf.jtf_customernumber.getText())
+                            : -1),
                     Double.valueOf(tsf.jtf_balance.getText())));
         } catch (NumberFormatException e) {
             makeUseOf.displayAnyErrors(e);
@@ -192,6 +191,7 @@ public class ClientAction {
     }
 
     //
+
     /**
      *
      */
@@ -199,10 +199,10 @@ public class ClientAction {
         try {
             int count = Integer.parseInt(JOptionPane.showInputDialog(null, "Number of Products: "));
             makeUseOf.receiveProducts(count);
-            
-            Transaction.getFrame().jtf_balance.setText(String.valueOf(makeUseOf.deposit));
-            InvoiceEntry.getFrame().jtf_deposit.setText(String.valueOf(makeUseOf.deposit));
-            InvoiceEntry.getFrame().jtf_payment.setText(String.valueOf(makeUseOf.total));
+
+            Transaction.getFrame().jtf_balance.setText(String.valueOf(makeUseOf.getDeposit()));
+            InvoiceEntry.getFrame().jtf_deposit.setText(String.valueOf(makeUseOf.getDeposit()));
+            InvoiceEntry.getFrame().jtf_payment.setText(String.valueOf(makeUseOf.getTotal()));
         } catch (HeadlessException | NumberFormatException e) {
             makeUseOf.displayAnyErrors(e);
         }
@@ -213,7 +213,7 @@ public class ClientAction {
      */
     public void transaction() {
         makeUseOf.confirmTransaction();
-        makeUseOf.transactions.forEach((Queue t) -> {
+        makeUseOf.getTransactions().forEach((Queue t) -> {
             accountService().update("balance",
                     String.valueOf(t.getDeposit()),
                     findCustomer().withInvoiceId(Integer.valueOf(t.getInvoiceId()))
@@ -229,6 +229,6 @@ public class ClientAction {
                     Integer.valueOf(t.getInvoiceId())
             );
         });
-        makeUseOf.items.forEach(i -> lineItemService().create(i));
+        makeUseOf.getItems().forEach(i -> lineItemService().create(i));
     }
 }

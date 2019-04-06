@@ -10,13 +10,13 @@ public interface IFindService {
      * @param id
      * @return
      */
-    public boolean findId(int id);
+    boolean findId(int id);
 
     /**
      *
      * @return
      */
-    public int lastCreatedId();
+    int lastCreatedId();
 
     //public <?> withQuery(String sql);
 

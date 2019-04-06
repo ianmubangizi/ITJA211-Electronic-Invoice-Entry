@@ -1,7 +1,6 @@
 package com.electronic_invoice.Entities;
 
 /**
- *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class LineItem {
@@ -11,7 +10,6 @@ public class LineItem {
     private int quantity;
 
     /**
-     *
      * @param invoice_number
      * @param product_code
      * @param quantity
@@ -29,7 +27,6 @@ public class LineItem {
     }
 
     /**
-     *
      * @return
      */
     public int getInvoice_number() {
@@ -37,7 +34,6 @@ public class LineItem {
     }
 
     /**
-     *
      * @param invoice_number
      */
     public void setInvoice_number(int invoice_number) {
@@ -45,7 +41,6 @@ public class LineItem {
     }
 
     /**
-     *
      * @return
      */
     public String getProduct_code() {
@@ -53,7 +48,6 @@ public class LineItem {
     }
 
     /**
-     *
      * @param product_code
      */
     public void setProduct_code(String product_code) {
@@ -61,7 +55,6 @@ public class LineItem {
     }
 
     /**
-     *
      * @return
      */
     public int getQuantity() {
@@ -69,7 +62,6 @@ public class LineItem {
     }
 
     /**
-     *
      * @param quantity
      */
     public void setQuantity(int quantity) {

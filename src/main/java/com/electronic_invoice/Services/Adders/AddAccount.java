@@ -1,10 +1,10 @@
 package com.electronic_invoice.Services.Adders;
 
 import com.electronic_invoice.Entities.Account;
+
 import static com.electronic_invoice.Services.DatabaseService.databaseService;
 
 /**
- *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public final class AddAccount {
@@ -16,7 +16,6 @@ public final class AddAccount {
     }
 
     /**
-     *
      * @return
      */
     public static AddAccount accountService() {
@@ -26,7 +25,6 @@ public final class AddAccount {
     }
 
     /**
-     *
      * @param account
      */
     public void create(Account account) {
@@ -36,7 +34,6 @@ public final class AddAccount {
     }
 
     /**
-     *
      * @param columnName
      * @param value
      * @param key

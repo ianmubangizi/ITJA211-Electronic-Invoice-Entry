@@ -1,32 +1,40 @@
 package com.electronic_invoice.Frames;
 
 import com.electronic_invoice.Entities.Product;
-import static com.electronic_invoice.Services.Finders.FindProduct.findProduct;
 import com.electronic_invoice.Utils.ClientAction;
 import com.electronic_invoice.Utils.Helpers;
-import java.awt.Color;
-import java.awt.GridLayout;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+
+import javax.swing.*;
+import java.awt.*;
+
+import static com.electronic_invoice.Services.Finders.FindProduct.findProduct;
 
 /**
- *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class InvoiceEntry extends JFrame {
 
     //
     private static final long serialVersionUID = 2720710036607580794L;
-    private final ClientAction action = new ClientAction();
     private static InvoiceEntry frame = null;
-    private final String frame_title = "Electronic Invoice Entry";
-
+    //
+    public final JTextField jtf_name = new JTextField();
+    public final JTextField jtf_address = new JTextField();
+    public final JTextField jtf_city = new JTextField();
+    public final JTextField jtf_description = new JTextField();
+    public final JTextField jtf_province = new JTextField();
+    public final JTextField jtf_zip = new JTextField();
+    public final JTextField jtf_productcode = new JTextField();
+    public final JTextField jtf_invoicenumber = new JTextField();
+    public final JTextField jtf_customernumber = new JTextField();
+    public final JTextField jtf_payment = new JTextField();
+    public final JTextField jtf_price = new JTextField();
+    public final JTextField jtf_deposit = new JTextField();
+    //
+    public final JTextArea jtxta_products = new JTextArea("List of Products e.g:\n116-456 x 2");
+    public final JComboBox<String> jcbx_allproducts = new JComboBox<>();
+    private final JTextField jtf_quantity = new JTextField();
+    private final ClientAction action = new ClientAction();
     //
     private final JLabel jl_name = new JLabel("Name");
     private final JLabel jl_address = new JLabel("Address");
@@ -43,52 +51,34 @@ public class InvoiceEntry extends JFrame {
     private final JLabel jl_price = new JLabel("Price");
     private final JLabel jl_deposit = new JLabel("Deposit");
     private final JLabel jl_allproducts = new JLabel("All Products:");
-
     //
-    public final JTextField jtf_name = new JTextField();
-    public final JTextField jtf_address = new JTextField();
-    public final JTextField jtf_city = new JTextField();
-    public final JTextField jtf_description = new JTextField();
-    public final JTextField jtf_province = new JTextField();
-    public final JTextField jtf_zip = new JTextField();
-    public final JTextField jtf_productcode = new JTextField();
-    public final JTextField jtf_invoicenumber = new JTextField();
-    public final JTextField jtf_customernumber = new JTextField();
-    public final JTextField jtf_quantity = new JTextField();
-    public final JTextField jtf_payment = new JTextField();
-    public final JTextField jtf_price = new JTextField();
-    public final JTextField jtf_deposit = new JTextField();
+    private final JButton jbtn_addcustomer = new JButton("Add Customer");
+    private final JButton jbtn_findproduct = new JButton("Find Product");
+    private final JButton jbtn_listproduct = new JButton("List Product");
+    private final JButton jbtn_addinvoice = new JButton("Add Invoice");
+    private final JButton jbtn_showinvoice = new JButton("Show Invoice");
+    private final JButton jbtn_exit = new JButton("Exit");
+    private final JButton jbtn_writeinvoice = new JButton("Write Invoice");
+    private final JButton jbtn_next = new JButton("Next");
+    private final JScrollPane jslp_productbought = new JScrollPane(jtxta_products);
 
-    //
-    public final JButton jbtn_addcustomer = new JButton("Add Customer");
-    public final JButton jbtn_findproduct = new JButton("Find Product");
-    public final JButton jbtn_listproduct = new JButton("List Product");
-    public final JButton jbtn_addinvoice = new JButton("Add Invoice");
-    public final JButton jbtn_showinvoice = new JButton("Show Invoice");
-    public final JButton jbtn_exit = new JButton("Exit");
-    public final JButton jbtn_writeinvoice = new JButton("Write Invoice");
-    public final JButton jbtn_next = new JButton("Next");
-
-    //
-    public final JTextArea jtxta_products = new JTextArea("List of Products e.g:\n116-456 x 2");
-    public final JScrollPane jslp_productbought = new JScrollPane(jtxta_products);
-    public final JComboBox<String> jcbx_allproducts = new JComboBox<>();
-    public InvoiceEntry() {
+    private InvoiceEntry() {
         frame = this;
         initFrame();
     }
 
-    /**
-     *
-     * @param args
-     */
     public static void main(String[] args) {
         new InvoiceEntry();
         new Transaction();
     }
 
+    public static InvoiceEntry getFrame() {
+        return frame;
+    }
+
     //
     private void initFrame() {
+        String frame_title = "Electronic Invoice Entry";
         setTitle(frame_title);
         setSize(500, 600);
         setVisible(true);
@@ -141,42 +131,20 @@ public class InvoiceEntry extends JFrame {
         add(jbtn_writeinvoice).setName("jbtn_writeinvoice");
         add(jbtn_next).setName("jbtn_next");
 
-        jbtn_next.addActionListener((e) -> {
-            Transaction.getFrame().setVisible(true);
-        });
+        jbtn_next.addActionListener((e) -> Transaction.getFrame().setVisible(true));
         jbtn_exit.addActionListener((e) -> {
             getFrame().dispose();
             Transaction.getFrame().dispose();
         });
-        jbtn_addinvoice.addActionListener((e) -> {
-            action.createInvoice(this);
-        });
-        jbtn_addcustomer.addActionListener((e) -> {
-            action.addCustomer(this);
-        });
-        jbtn_findproduct.addActionListener((e) -> {
-            action.findProductAction(this);
-        });
-        jbtn_listproduct.addActionListener((e) -> {
-            new Helpers().displayProductList(this);
-        });
-        jbtn_showinvoice.addActionListener((e) -> {
-            action.showInvoice(this);
-        });
-        jbtn_writeinvoice.addActionListener((e) -> {
-            action.printInvoice(this);
-        });
+        jbtn_addinvoice.addActionListener((e) -> action.createInvoice(this));
+        jbtn_addcustomer.addActionListener((e) -> action.addCustomer(this));
+        jbtn_findproduct.addActionListener((e) -> action.findProductAction(this));
+        jbtn_listproduct.addActionListener((e) -> new Helpers().displayProductList(this));
+        jbtn_showinvoice.addActionListener((e) -> action.showInvoice(this));
+        jbtn_writeinvoice.addActionListener((e) -> action.printInvoice(this));
         jcbx_allproducts.addActionListener((e) -> {
             Product p = findProduct().allProducts().get(jcbx_allproducts.getSelectedIndex());
             jtf_productcode.setText(p.getProduct_code());
         });
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static InvoiceEntry getFrame() {
-        return frame;
     }
 }

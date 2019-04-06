@@ -1,6 +1,7 @@
 package com.electronic_invoice.Services.Adders;
 
 import com.electronic_invoice.Entities.Customer;
+
 import static com.electronic_invoice.Services.DatabaseService.databaseService;
 
 /**
@@ -17,7 +18,6 @@ public final class AddCustomer {
     }
 
     /**
-     *
      * @return
      */
     public static AddCustomer customerService() {
@@ -28,7 +28,6 @@ public final class AddCustomer {
     }
 
     /**
-     *
      * @param customer
      */
     public void create(Customer customer) {
@@ -41,7 +40,6 @@ public final class AddCustomer {
     // [Todo] Use Customer and String[]
 
     /**
-     *
      * @param columnName
      * @param value
      * @param key

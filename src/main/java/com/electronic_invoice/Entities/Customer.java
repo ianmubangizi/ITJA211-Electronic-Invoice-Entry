@@ -2,7 +2,7 @@ package com.electronic_invoice.Entities;
 
 /**
  * Customer Entity Class
- * 
+ *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class Customer {
@@ -29,7 +29,7 @@ public class Customer {
      * @param deposit         The deposit the customer makes on creation
      */
     public Customer(int customer_number, String name, String address, String city, String province, String zip,
-            double deposit) {
+                    double deposit) {
         this.customer_number = customer_number;
         this.name = name;
         this.address = address;
@@ -46,7 +46,6 @@ public class Customer {
     }
 
     /**
-     *
      * @return
      */
     public int getCustomer_number() {
@@ -54,7 +53,6 @@ public class Customer {
     }
 
     /**
-     *
      * @param customer_number
      */
     public void setCustomer_number(int customer_number) {
@@ -62,7 +60,6 @@ public class Customer {
     }
 
     /**
-     *
      * @return
      */
     public String getName() {
@@ -70,7 +67,6 @@ public class Customer {
     }
 
     /**
-     *
      * @param name
      */
     public void setName(String name) {
@@ -78,7 +74,6 @@ public class Customer {
     }
 
     /**
-     *
      * @return
      */
     public String getAddress() {
@@ -86,7 +81,6 @@ public class Customer {
     }
 
     /**
-     *
      * @param address
      */
     public void setAddress(String address) {
@@ -94,7 +88,6 @@ public class Customer {
     }
 
     /**
-     *
      * @return
      */
     public String getCity() {
@@ -102,7 +95,6 @@ public class Customer {
     }
 
     /**
-     *
      * @param city
      */
     public void setCity(String city) {
@@ -110,7 +102,6 @@ public class Customer {
     }
 
     /**
-     *
      * @return
      */
     public String getProvince() {
@@ -118,7 +109,6 @@ public class Customer {
     }
 
     /**
-     *
      * @param province
      */
     public void setProvince(String province) {
@@ -126,7 +116,6 @@ public class Customer {
     }
 
     /**
-     *
      * @return
      */
     public String getZip() {
@@ -134,7 +123,6 @@ public class Customer {
     }
 
     /**
-     *
      * @param zip
      */
     public void setZip(String zip) {
@@ -142,7 +130,6 @@ public class Customer {
     }
 
     /**
-     *
      * @return
      */
     public double getDeposit() {
@@ -150,7 +137,6 @@ public class Customer {
     }
 
     /**
-     *
      * @param deposit
      */
     public void setDeposit(double deposit) {

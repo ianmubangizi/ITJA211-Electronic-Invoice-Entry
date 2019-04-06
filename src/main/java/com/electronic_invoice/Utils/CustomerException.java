@@ -1,7 +1,6 @@
 package com.electronic_invoice.Utils;
 
 /**
- *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class CustomerException extends Exception {
@@ -18,15 +17,13 @@ public class CustomerException extends Exception {
     }
 
     /**
-     *
      * @param msg
      */
-    public void setMessage(String msg) {
+    void setMessage(String msg) {
         this.message = msg;
-    };
+    }
 
     /**
-     *
      * @return
      */
     public static CustomerException customerException() {
@@ -44,7 +41,7 @@ class CustomerAlreadyExistsException extends CustomerException {
         return super.getMessage();
     }
 
-    public static CustomerAlreadyExistsException caee() {
+    static CustomerAlreadyExistsException caee() {
         return new CustomerAlreadyExistsException();
     }
 }

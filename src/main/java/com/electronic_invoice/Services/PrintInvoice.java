@@ -16,7 +16,6 @@ public final class PrintInvoice {
     }
 
     /**
-     *
      * @return
      */
     public static PrintInvoice printService() {
@@ -26,18 +25,17 @@ public final class PrintInvoice {
     }
 
     /**
-     *
      * @param doc
      * @param id
      */
     public void print(String doc, String id) {
         try {
             String filename = "Customer Invoice [" + id + "].txt";
-            try (PrintWriter printfile = new PrintWriter(new File(filename))) {
+            try (PrintWriter printable = new PrintWriter(new File(filename))) {
                 System.out.println("Printing File: " + filename);
-                printfile.print(doc);
+                printable.print(doc);
             }
-        } catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ignored) {
         }
     }
 }

@@ -1,12 +1,12 @@
 package com.electronic_invoice.Utils;
 
-import java.awt.Component;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * MessagePane
  */
-public class MessagePane extends JOptionPane {
+class MessagePane extends JOptionPane {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,7 +17,7 @@ public class MessagePane extends JOptionPane {
      * @param title
      * @param type
      */
-    public MessagePane(Component parentComponent, String message, String title, EMessage type) {
+    MessagePane(Component parentComponent, String message, String title, EMessage type) {
         switch (type) {
             case ERROR:
                 showMessageDialog(parentComponent, message, title, ERROR_MESSAGE);
@@ -51,6 +51,6 @@ public class MessagePane extends JOptionPane {
         /**
          *
          */
-        INFO;
+        INFO
     }
 }

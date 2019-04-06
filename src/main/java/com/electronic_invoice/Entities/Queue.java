@@ -1,7 +1,6 @@
 package com.electronic_invoice.Entities;
 
 /**
- *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class Queue {
@@ -10,19 +9,17 @@ public class Queue {
     private double deposit;
 
     /**
-     *
-     * @param queue_invoiceid
+     * @param queue_invoice
      * @param payment
      * @param deposit
      */
-    public Queue(String queue_invoiceid, double payment, double deposit) {
-        this.queue_invoiceid = queue_invoiceid;
+    public Queue(String queue_invoice, double payment, double deposit) {
+        this.queue_invoiceid = queue_invoice;
         this.payment = payment;
         this.deposit = deposit;
     }
 
     /**
-     *
      * @return
      */
     public String getInvoiceId() {
@@ -30,7 +27,6 @@ public class Queue {
     }
 
     /**
-     *
      * @param queue_invoiceid
      */
     public void setInvoiceId(String queue_invoiceid) {
@@ -38,7 +34,6 @@ public class Queue {
     }
 
     /**
-     *
      * @return
      */
     public double getPayment() {
@@ -46,7 +41,6 @@ public class Queue {
     }
 
     /**
-     *
      * @param payment
      */
     public void setPayment(double payment) {
@@ -54,7 +48,6 @@ public class Queue {
     }
 
     /**
-     *
      * @return
      */
     public double getDeposit() {
@@ -62,7 +55,6 @@ public class Queue {
     }
 
     /**
-     *
      * @param deposit
      */
     public void setDeposit(double deposit) {

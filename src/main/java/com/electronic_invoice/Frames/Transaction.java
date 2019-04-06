@@ -1,16 +1,11 @@
 package com.electronic_invoice.Frames;
 
 import com.electronic_invoice.Utils.ClientAction;
-import java.awt.Color;
-import java.awt.GridLayout;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
- *
  * @author Ian Mubangizi <io@ianmubangizi.com>
  */
 public class Transaction extends JFrame {
@@ -19,7 +14,8 @@ public class Transaction extends JFrame {
     private static final long serialVersionUID = 5764815429841719164L;
     private static Transaction frame = null;
     private final ClientAction action = new ClientAction();
-    public String frame_title = "Electronic Invoice Entry – Transaction";
+    //
+    private final JButton jbtn_check = new JButton("Check Balance");
 
     //
     private final JLabel jl_name = new JLabel("Name");
@@ -30,14 +26,12 @@ public class Transaction extends JFrame {
     public final JTextField jtf_name = new JTextField();
     public final JTextField jtf_customernumber = new JTextField();
     public final JTextField jtf_balance = new JTextField();
+    private final JButton jbtn_deposit = new JButton("Deposit");
+    private final JButton jbtn_calculate = new JButton("Calculate Payment & Deposit");
+    private final JButton jbtn_transaction = new JButton("Transaction");
+    private String frame_title = "Electronic Invoice Entry – Transaction";
 
-    //
-    public final JButton jbtn_check = new JButton("Check Balance");
-    public final JButton jbtn_deposit = new JButton("Deposit");
-    public final JButton jbtn_calculate = new JButton("Calculate Payment & Deposit");
-    public final JButton jbtn_transaction = new JButton("Transaction");
-
-    public Transaction() {
+    Transaction() {
         frame = this;
         initFrame();
     }
@@ -64,22 +58,13 @@ public class Transaction extends JFrame {
         add(jbtn_transaction).setName("jbtn_transaction");
 
         //
-        jbtn_check.addActionListener((e) -> {
-            action.checkAccount(this, InvoiceEntry.getFrame());
-        });
-        jbtn_deposit.addActionListener((e) -> {
-            action.addAccount(this);
-        });
-        jbtn_calculate.addActionListener((e) -> {
-            action.calculateAndDeposit();
-        });
-        jbtn_transaction.addActionListener((e) -> {
-            action.transaction();
-        });
+        jbtn_check.addActionListener((e) -> action.checkAccount(this, InvoiceEntry.getFrame()));
+        jbtn_deposit.addActionListener((e) -> action.addAccount(this));
+        jbtn_calculate.addActionListener((e) -> action.calculateAndDeposit());
+        jbtn_transaction.addActionListener((e) -> action.transaction());
     }
 
     /**
-     *
      * @return
      */
     public static Transaction getFrame() {

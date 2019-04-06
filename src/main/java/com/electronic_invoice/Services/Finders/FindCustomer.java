@@ -1,10 +1,12 @@
 package com.electronic_invoice.Services.Finders;
 
 import com.electronic_invoice.Entities.Customer;
-import static com.electronic_invoice.Services.DatabaseService.databaseService;
 import com.electronic_invoice.Utils.IFindService;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import static com.electronic_invoice.Services.DatabaseService.databaseService;
 
 /**
  * FindCustomer
@@ -18,7 +20,6 @@ public class FindCustomer implements IFindService {
     }
 
     /**
-     *
      * @return
      */
     public static FindCustomer findCustomer() {
@@ -28,7 +29,6 @@ public class FindCustomer implements IFindService {
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -37,52 +37,55 @@ public class FindCustomer implements IFindService {
         ResultSet rs = databaseService()
                 .getQuery(String.format("SELECT customer_number FROM orion.customer WHERE customer_number=%d;", id));
         try {
-            if (rs.first()) {
+            if (rs != null && rs.first()) {
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
 
         }
         return false;
     }
 
     /**
-     *
      * @return
      */
     @Override
     public int lastCreatedId() {
         ResultSet rs = databaseService().getQuery("SELECT customer_number FROM orion.customer ;");
         try {
-            if (rs.last()) {
+            if (rs != null && rs.last()) {
                 return rs.getInt("customer_number");
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
 
         }
         return 0;
     }
 
     /**
-     *
      * @param sql
      * @return
      */
     public Customer withQuery(String sql) {
         ResultSet rs = databaseService().getQuery(sql);
         try {
-            if (rs.isFirst()) {
-                return new Customer(rs.getInt("customer_number"), rs.getString("name"), rs.getString("address"),
-                        rs.getString("city"), rs.getString("province"), rs.getString("zip"), rs.getDouble("deposit"));
+            if (rs != null && rs.isFirst()) {
+                return new Customer(
+                        rs.getInt("customer_number"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("city"),
+                        rs.getString("province"),
+                        rs.getString("zip"),
+                        rs.getDouble("deposit"));
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
 
         }
         return new Customer();
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -90,17 +93,16 @@ public class FindCustomer implements IFindService {
         ResultSet rs = databaseService()
                 .getQuery(String.format("SELECT customer_number FROM orion.invoice WHERE invoice_number=%d;", id));
         try {
-            if (rs.next()) {
+            if (rs != null && rs.next()) {
                 return rs.getInt("customer_number");
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
 
         }
         return 0;
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -108,11 +110,17 @@ public class FindCustomer implements IFindService {
         ResultSet rs = databaseService()
                 .getQuery(String.format("SELECT * FROM orion.customer WHERE customer_number=%d;", id));
         try {
-            if (rs.next()) {
-                return new Customer(rs.getInt("customer_number"), rs.getString("name"), rs.getString("address"),
-                        rs.getString("city"), rs.getString("province"), rs.getString("zip"), rs.getDouble("deposit"));
+            if (rs != null && rs.next()) {
+                return new Customer(
+                        rs.getInt("customer_number"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("city"),
+                        rs.getString("province"),
+                        rs.getString("zip"),
+                        rs.getDouble("deposit"));
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
 
         }
         return new Customer();

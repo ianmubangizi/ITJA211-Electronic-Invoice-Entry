@@ -1,11 +1,13 @@
 package com.electronic_invoice.Services.Finders;
 
 import com.electronic_invoice.Entities.Product;
-import static com.electronic_invoice.Services.DatabaseService.databaseService;
 import com.electronic_invoice.Utils.IFindService;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static com.electronic_invoice.Services.DatabaseService.databaseService;
 
 /**
  * FindProduct
@@ -39,10 +41,10 @@ public class FindProduct implements IFindService {
         ResultSet rs = databaseService()
                 .getQuery(String.format("SELECT * FROM orion.product WHERE product_code='%s';", id));
         try {
-            if (rs.next()) {
+            if (rs != null && rs.next()) {
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
 
         }
         return false;
@@ -75,10 +77,13 @@ public class FindProduct implements IFindService {
         ResultSet rs = databaseService()
                 .getQuery(String.format("SELECT * FROM orion.product WHERE product_code='%s';", id));
         try {
-            if (rs.next()) {
-                return new Product(rs.getString("product_code"), rs.getString("description"), rs.getInt("price"));
+            if (rs != null && rs.next()) {
+                return new Product(
+                        rs.getString("product_code"),
+                        rs.getString("description"),
+                        rs.getInt("price"));
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
 
         }
         return new Product();
@@ -92,14 +97,17 @@ public class FindProduct implements IFindService {
         ResultSet rs = databaseService().getQuery("SELECT * FROM orion.product;");
         try {
             ArrayList<Product> productList = new ArrayList<>();
-            while (rs.next()) {
+            while (rs != null && rs.next()) {
                 productList.add(
-                        new Product(rs.getString("product_code"), rs.getString("description"), rs.getInt("price")));
+                        new Product(
+                                rs.getString("product_code"),
+                                rs.getString("description"),
+                                rs.getInt("price")));
             }
             if (!productList.isEmpty()) {
                 return productList;
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
         return new ArrayList<>();
     }

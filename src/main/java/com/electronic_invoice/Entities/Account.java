@@ -20,9 +20,9 @@ public class Account {
     /**
      * Account Constructor
      *
-     * @param name The name of the Customer
+     * @param name            The name of the Customer
      * @param customer_number The Customer's number
-     * @param balance The Account balance
+     * @param balance         The Account balance
      */
     public Account(String name, int customer_number, double balance) {
         this.name = name;
