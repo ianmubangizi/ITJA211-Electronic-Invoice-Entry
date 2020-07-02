@@ -10,7 +10,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId> <!--[Todo]: Update to 8.0.7-dmr add SSL Support -->
-            <version>5.1.6</version> <!-- @vulnerable -->
+            <version>8.0.16</version> <!-- @vulnerable -->
         </dependency>
     </dependencies>
     <properties>
